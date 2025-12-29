@@ -1,0 +1,16 @@
+{
+    "name": "Core.Systems.Update",
+    "rootNamespace": "Core.Systems.Update",
+    "references": [
+        "Core.Systems.ServiceLocator"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

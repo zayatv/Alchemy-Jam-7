@@ -1,0 +1,21 @@
+{
+    "name": "Core.Game.Input",
+    "rootNamespace": "Core.Game.Input",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:b8113d89f8f6e5342b4060892bb7e558",
+        "GUID:0db1dc4d2aaecb6459e30521aa9fc100",
+        "GUID:69a651df3b6ea284ab53b5b0dfa4bb68",
+        "GUID:e1057b8d90080c14ca9e7cf6ebef17b4",
+        "GUID:6b035f7bf1e049ffb4c53e48e58fea11"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
