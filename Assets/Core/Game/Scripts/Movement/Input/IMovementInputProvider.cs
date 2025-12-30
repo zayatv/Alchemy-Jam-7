@@ -1,0 +1,57 @@
+﻿using UnityEngine;
+
+namespace Core.Game.Movement.Input
+{
+    public interface IMovementInputProvider
+    {
+        /// <summary>
+        /// Retrieves the movement input as a 2D vector representing the player's desired movement direction.
+        /// </summary>
+        /// <returns>
+        /// A Vector2 containing the horizontal (x) and vertical (y) input values.
+        /// The magnitude and direction of the vector correspond to the input provided by the player.
+        /// Returns a zero vector if input is disabled or there is no movement input.
+        /// </returns>
+        Vector2 GetMovementInput();
+
+        /// <summary>
+        /// Determines whether the player has requested to activate sprinting functionality.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating the sprint request state:
+        /// True if sprint input is detected and input is enabled;
+        /// False otherwise.
+        /// </returns>
+        bool IsSprintRequested();
+
+        /// <summary>
+        /// Checks if the player has pressed the jump input.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating whether jump input has been pressed:
+        /// True if the jump input is detected and input is enabled;
+        /// False otherwise.
+        /// </returns>
+        bool IsJumpPressed();
+
+        /// <summary>
+        /// Checks if the player is holding down the jump input continuously.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating the state of the jump input:
+        /// True if the jump input is being held and input is enabled;
+        /// False otherwise.
+        /// </returns>
+        bool IsJumpHeld();
+
+        /// <summary>
+        /// Indicates whether input functionality is currently enabled for the player.
+        /// </summary>
+        /// <returns>
+        /// A boolean value representing the input state:
+        /// True if input is enabled and responsive;
+        /// False if input is disabled or unavailable.
+        /// </returns>
+        bool IsInputEnabled();
+    }
+}
