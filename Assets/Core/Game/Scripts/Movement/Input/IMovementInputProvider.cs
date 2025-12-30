@@ -35,16 +35,6 @@ namespace Core.Game.Movement.Input
         bool IsJumpPressed();
 
         /// <summary>
-        /// Checks if the player is holding down the jump input continuously.
-        /// </summary>
-        /// <returns>
-        /// A boolean value indicating the state of the jump input:
-        /// True if the jump input is being held and input is enabled;
-        /// False otherwise.
-        /// </returns>
-        bool IsJumpHeld();
-
-        /// <summary>
         /// Indicates whether input functionality is currently enabled for the player.
         /// </summary>
         /// <returns>

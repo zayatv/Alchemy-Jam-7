@@ -45,7 +45,6 @@ namespace Core.Game.Movement.Data
         public bool HasMovementInput => InputProvider != null && InputProvider.IsInputEnabled() && InputProvider.GetMovementInput().sqrMagnitude > Config.InputThreshold * Config.InputThreshold;
         public bool IsSprintRequested => InputProvider != null && InputProvider.IsInputEnabled() && InputProvider.IsSprintRequested();
         public bool IsJumpPressed => InputProvider != null && InputProvider.IsInputEnabled() && InputProvider.IsJumpPressed();
-        public bool IsJumpHeld => InputProvider != null && InputProvider.IsInputEnabled() && InputProvider.IsJumpHeld();
         public bool CanCoyoteJump => TimeSinceGrounded <= Config.CoyoteTime;
         
         #endregion

@@ -84,5 +84,10 @@ namespace Core.Systems.ServiceLocator
         {
             _services.Clear();
         }
+
+        public static IEnumerable<KeyValuePair<Type, object>> GetAllServices()
+        {
+            return _services;
+        }
     }
 }

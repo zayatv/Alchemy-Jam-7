@@ -83,6 +83,7 @@ namespace Core.Game.Movement.Movement
                 Transform = transform,
                 InputProvider = _movementInputProvider,
                 Config = movementConfig,
+                States = new MovementStates(),
                 GravityDirection = Vector3.down
             };
         }

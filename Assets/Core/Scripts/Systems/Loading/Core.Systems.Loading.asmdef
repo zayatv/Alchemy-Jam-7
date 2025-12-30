@@ -1,0 +1,18 @@
+{
+    "name": "Core.Systems.Loading",
+    "rootNamespace": "",
+    "references": [
+        "GUID:caca889fed6088d40b22c2d7e2909c31",
+        "GUID:b8113d89f8f6e5342b4060892bb7e558",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

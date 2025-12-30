@@ -4,6 +4,7 @@ using Core.Scripts.Systems.Logging;
 using Core.Systems.Input;
 using Core.Systems.ServiceLocator;
 using Core.Systems.Update;
+using UnityEngine;
 
 namespace Core.Game.Input
 {
@@ -24,9 +25,11 @@ namespace Core.Game.Input
             _inputService.RegisterContext(new UIInputContext(_inputActions.UI));
             
             _inputActions.Gameplay.Enable();
-            _inputActions.Gameplay.Disable();
+            _inputActions.UI.Enable();
             
-            helper.Register(_inputService);
+            _inputService.EnableAll();
+            
+            helper.Register<IInputService>(_inputService);
             
             RegisterUpdatables(helper);
         }
