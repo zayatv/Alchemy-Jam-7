@@ -1,4 +1,5 @@
 ﻿using Core.Game.Movement.Data;
+using Core.Game.Movement.StateMachine.States.Airborne;
 using UnityEngine;
 
 namespace Core.Game.Movement.StateMachine.States
@@ -12,7 +13,7 @@ namespace Core.Game.Movement.StateMachine.States
         public override void Enter(MovementData data)
         {
             base.Enter(data);
-            
+
             if (!data.WasGroundedLastFrame)
                 data.ResetGravityVelocity();
         }

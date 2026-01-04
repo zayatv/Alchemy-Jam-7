@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: SigConfig
+  m_EditorClassIdentifier: Assembly-CSharp:AHAKuo.Signalia.Framework:SignaliaConfigAsset
+  DefaultButtonsCooldown: 0.1
+  PreventButtonsClickingWhenViewAnimating: 0
+  DisableEventSystemWhenViewAnimating: 0
+  PreventButtonsClickingWhenAnimatableAnimating: 0
+  DisableEventSystemWhenAnimatableAnimating: 0
+  ClickBackAudio: 
+  AlwaysClickBackAudio: 0
+  KeepManagerAlive: 0
+  UIViewAnimatingIn: 
+  UIViewAnimatingOut: 
+  UIButtonClicked: 
+  UIButtonsDisabler: 
+  UIButtonsEnabler: 
+  UnityEventSystemOff: 
+  UnityEventSystemOn: 
+  ConvertAllButtonsToUIButtons: 0
+  OverrideUiViewAnimateOnce: 0
+  UIViewsAnimateOnce: 0
+  AutoAddEffector: 1
+  AutoAddBackButton: 1
+  DisableButtonBlockers_TMPText: 0
+  AudioMixerAsset: {fileID: 0}
+  DisableAudioMixerLoading: 0
+  TwoSideListeners: 0
+  AudioAssets: []
+  ResourceAssets: []
+  EnableDebugging: 0
+  UseIntrospection: 1
+  LogListenerCreation: 0
+  LogListenerDisposal: 0
+  LogEventSend: 0
+  LogEventReceive: 0
+  LogLiveKeyCreation: 0
+  LogLiveKeyRead: 0
+  LogLiveKeyDisposal: 0
+  LogDeadKeyCreation: 0
+  LogDeadKeyRead: 0
+  LogDeadKeyDisposal: 0
+  LogHaptics: 0
+  LogComplexListenerCreation: 0
+  LogComplexListenerDisposal: 0
+  LogChannelCreation: 0
+  LogChannelDisposal: 0
+  LogChannelSend: 0
+  LogChannelReceive: 0
+  EnableHaptics: 1
+  AutoSaveHapticSetting: 1
+  HapticsSaveKey: haptic_enable
+  Haptics_GlobalIntensityMultiplier: 0.5
+  Haptics_GlobalDurationMultiplier: 0.5
+  PoolingSystem:
+    SmartPoolLifetimeKill: 1
+    CeilingLimit: 0
+    EnableRecycling: 0
+  LoadingScreen:
+    LoadingScreenPrefab: {fileID: 0}
+    EventOnLoadInitialComplete: 
+    EventOnLoadFullyComplete: 
+    SimulateFakeLoading: 0
+    FakeLoadingTime: 2
+    ClickToProgress: 0
+    ProgressionEvent: 
+    preloadLoadingScreen: 0
+  SavingSystem:
+    SettingsFileName: settings
+    SaveFileExtension: .sav
+    SaveDirectoryPath: SaveData
+    LogSaving: 0
+    CachedSaveFiles: []
+    EncryptionRules: []
+  AudioLayering:
+    LayerData: {fileID: 0}
+    FadeDuration: 1
+    ContinuousPlaying: 0
+  CurrencySystem:
+    SaveFileName: gd_lcl
+    CurrencyLimits: []
+  CommonMechanics:
+    InteractiveZone:
+      InputEventName: cmn_interact
+      UseLegacyInputFallback: 1
+      LegacyFallbackKey: 101
+      BindingDisplayName: Interact
+      SaveFileName: cmn_interactions
+  InventorySystem:
+    EnableAutoSave: 0
+    AutoSaveAnyInventory: 0
+    AutoSaveInventoryIds: []
+    LogAutoSave: 0
+    ItemReferences: []
+    CustomPropertyFallbackText: '-'
+    ShowTotalQuantityInDisplayer: 0
+    OnItemAddFailed: Inventory_ItemAddFailed
+    OnItemRemoveFailed: Inventory_ItemRemoveFailed
+    OnItemMoveFailed: Inventory_ItemMoveFailed
+  InlineScript:
+    GlobalUsings: 
+    RootPath_Cache: Assets/AHAKuo Creations/InlineScript_Cache/
+  LocalizationSystem:
+    HybridKey: 0
+    LocBooks: []
+    TextStyleCache: []
+    DefaultStartingLanguageCode: en
+    LanguageOptionSaveKey: language
+    LanguageChangedEvent: local_updated
+    AutoUpdateLocbooks: 0
+    AutoRefreshCacheInRuntime: 0

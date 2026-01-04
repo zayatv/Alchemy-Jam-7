@@ -13,6 +13,12 @@ namespace Core.Game.Movement.Data
 
         [Tooltip("Running/sprinting speed in units per second")]
         [SerializeField] private float runSpeed = 6.0f;
+        
+        [Tooltip("Threshold percentage of target speed to consider 'at speed' (0-1)")]
+        [SerializeField, Range(0.8f, 0.99f)] private float speedThreshold = 0.95f;
+        
+        [Tooltip("Minimum speed to consider as 'moving'")]
+        [SerializeField] private float minMoveSpeed = 0.1f;
 
         #endregion
 
@@ -93,6 +99,8 @@ namespace Core.Game.Movement.Data
         // Movement
         public float WalkSpeed => walkSpeed;
         public float RunSpeed => runSpeed;
+        public float SpeedThreshold => speedThreshold;
+        public float MinMoveSpeed => minMoveSpeed;
         
         // Acceleration
         public float Acceleration => acceleration;

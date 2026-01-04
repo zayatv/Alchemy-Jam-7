@@ -1,5 +1,5 @@
 ﻿using Core.Game.Movement.Data;
-using Core.Scripts.Systems.Logging;
+using Core.Systems.Logging;
 
 namespace Core.Game.Movement.StateMachine
 {
@@ -28,6 +28,10 @@ namespace Core.Game.Movement.StateMachine
         }
 
         public virtual void FixedUpdate(MovementData data, float fixedDeltaTime)
+        {
+        }
+        
+        public virtual void LateUpdate(MovementData data, float deltaTime)
         {
         }
 

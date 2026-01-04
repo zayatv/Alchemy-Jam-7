@@ -1,4 +1,4 @@
-﻿namespace Core.Scripts.Systems.Logging
+﻿namespace Core.Systems.Logging
 {
     public enum LogLevel
     {

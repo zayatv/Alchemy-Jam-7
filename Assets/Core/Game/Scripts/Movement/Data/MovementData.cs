@@ -1,4 +1,5 @@
-﻿using Core.Game.Movement.Input;
+﻿using Core.Game.Entities;
+using Core.Game.Movement.Input;
 using UnityEngine;
 
 namespace Core.Game.Movement.Data
@@ -12,6 +13,7 @@ namespace Core.Game.Movement.Data
         public IMovementInputProvider InputProvider;
         public MovementConfig Config;
         public MovementStates States;
+        public EntityView EntityView;
         
         #endregion
 

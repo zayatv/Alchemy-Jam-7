@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Scripts.Systems.Logging
+namespace Core.Systems.Logging
 {
     public struct LogEntry
     {

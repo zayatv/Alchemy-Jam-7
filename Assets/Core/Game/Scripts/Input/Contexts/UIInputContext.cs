@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Scripts.Systems.Logging;
+using Core.Systems.Logging;
 using Core.Systems.Input;
 using Core.Systems.Update;
 using UnityEngine.InputSystem;

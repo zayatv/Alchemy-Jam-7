@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace Core.Scripts.Systems.Logging
+namespace Core.Systems.Logging
 {
     public static class GameLogger
     {

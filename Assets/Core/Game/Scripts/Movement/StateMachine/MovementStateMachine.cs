@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Game.Movement.Data;
 using Core.Game.Movement.Events;
-using Core.Scripts.Systems.Logging;
+using Core.Systems.Logging;
 using Core.Systems.Events;
 
 namespace Core.Game.Movement.StateMachine
@@ -53,6 +53,14 @@ namespace Core.Game.Movement.StateMachine
                 return;
             
             FixedUpdateStateHierarchy(_currentState, fixedDeltaTime);
+        }
+        
+        public void OnLateUpdate(float deltaTime)
+        {
+            if (_currentState == null)
+                return;
+            
+            LateUpdateStateHierarchy(_currentState, deltaTime);
         }
 
         public void ChangeState(IMovementState newState)
@@ -132,6 +140,23 @@ namespace Core.Game.Movement.StateMachine
                 FixedUpdateStateHierarchy(state.ParentState, fixedDeltaTime);
             
             state.FixedUpdate(_data, fixedDeltaTime);
+        }
+
+        /// <summary>
+        /// Performs a recursive late-update operation on the state hierarchy, ensuring parent states are
+        /// late-updated before their child states, to maintain proper late-update order in the state machine.
+        /// </summary>
+        /// <param name="state">The current state to be late-updated. Parent states (if any) will be processed first.</param>
+        /// <param name="deltaTime">The time elapsed since the last frame update, utilized for time-sensitive calculations.</param>
+        private void LateUpdateStateHierarchy(IMovementState state, float deltaTime)
+        {
+            if (state == null)
+                return;
+            
+            if (state.ParentState != null)
+                LateUpdateStateHierarchy(state.ParentState, deltaTime);
+            
+            state.LateUpdate(_data, deltaTime);
         }
 
         /// <summary>

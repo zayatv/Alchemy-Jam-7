@@ -1,6 +1,6 @@
 using System;
 using Core.Game.Input.Contexts;
-using Core.Scripts.Systems.Logging;
+using Core.Systems.Logging;
 using Core.Systems.Input;
 using Core.Systems.ServiceLocator;
 using Core.Systems.Update;

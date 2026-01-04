@@ -17,6 +17,12 @@
         void OnFixedUpdate(float fixedDeltaTime);
 
         /// <summary>
+        /// Executes any necessary updates after all normal update functions have been called for the current frame.
+        /// </summary>
+        /// <param name="deltaTime">The time in seconds that has elapsed since the last frame.</param>
+        void OnLateUpdate(float deltaTime);
+
+        /// <summary>
         /// Changes the current state of the movement state machine to a new state.
         /// </summary>
         /// <param name="newState">The new state to transition to.</param>

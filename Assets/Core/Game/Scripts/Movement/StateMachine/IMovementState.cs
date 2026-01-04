@@ -34,6 +34,14 @@ namespace Core.Game.Movement.StateMachine
         void FixedUpdate(MovementData data, float fixedDeltaTime);
 
         /// <summary>
+        /// Performs frame-end updates for the movement state, allowing any necessary adjustments
+        /// or calculations that depend on changes made during the regular update cycle.
+        /// </summary>
+        /// <param name="data">The movement data containing the current state and context of the character.</param>
+        /// <param name="deltaTime">The time elapsed since the last frame, used for time-dependent calculations.</param>
+        void LateUpdate(MovementData data, float deltaTime);
+
+        /// <summary>
         /// Evaluates the current movement state to determine if a transition to a new state is required.
         /// </summary>
         /// <param name="data">The movement data containing the context and parameters of the character's motion.</param>

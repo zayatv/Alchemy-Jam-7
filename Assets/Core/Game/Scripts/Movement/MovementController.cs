@@ -1,8 +1,14 @@
-﻿using Core.Game.Movement.Input;
+﻿using Core.Game.Entities;
+using Core.Game.Movement.Input;
 using Core.Game.Movement.Data;
 using Core.Game.Movement.StateMachine;
 using Core.Game.Movement.StateMachine.States;
-using Core.Scripts.Systems.Logging;
+using Core.Game.Movement.StateMachine.States.Airborne;
+using Core.Game.Movement.StateMachine.States.Grounded;
+using Core.Game.Movement.StateMachine.States.Grounded.Accelerate;
+using Core.Game.Movement.StateMachine.States.Grounded.Decelerate;
+using Core.Game.Movement.StateMachine.States.Grounded.Locomotion;
+using Core.Systems.Logging;
 using Core.Systems.ServiceLocator;
 using Core.Systems.Update;
 using UnityEngine;
@@ -10,9 +16,12 @@ using UnityEngine;
 namespace Core.Game.Movement.Movement
 {
     [RequireComponent(typeof(CharacterController))]
-    public class MovementController : MonoBehaviour, IFixedUpdatable, IUpdatable
+    public class MovementController : MonoBehaviour, IFixedUpdatable, IUpdatable, ILateUpdatable
     {
         #region Serialized Fields
+        
+        [Header("References")]
+        [SerializeField] private EntityView entityView;
         
         [Header("Configuration")]
         [SerializeField] private MovementConfig movementConfig;
@@ -25,6 +34,7 @@ namespace Core.Game.Movement.Movement
         #region Fields
         
         private CharacterController _characterController;
+        private Animator _animator;
         private IUpdateService _updateService;
         private IMovementInputProvider _movementInputProvider;
         
@@ -37,9 +47,12 @@ namespace Core.Game.Movement.Movement
         
         public int FixedUpdatePriority => 0;
         public int UpdatePriority => 0;
+        public int LateUpdatePriority => 0;
         
         public MovementData Data => _movementData;
         public IMovementStateMachine StateMachine => _stateMachine;
+        public bool IsGrounded => _movementData.IsGrounded;
+        public bool IsReceivingMovementInput => _movementInputProvider.GetMovementInput().sqrMagnitude > 0f;
         
         #endregion
         
@@ -48,6 +61,7 @@ namespace Core.Game.Movement.Movement
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
+            _animator = GetComponentInChildren<Animator>();
             
             InitializeMovementData();
             InitializeStates();
@@ -82,8 +96,8 @@ namespace Core.Game.Movement.Movement
                 Controller = _characterController,
                 Transform = transform,
                 InputProvider = _movementInputProvider,
+                EntityView = entityView,
                 Config = movementConfig,
-                States = new MovementStates(),
                 GravityDirection = Vector3.down
             };
         }
@@ -95,6 +109,8 @@ namespace Core.Game.Movement.Movement
         /// </summary>
         private void InitializeStates()
         {
+            _movementData.States = new MovementStates();
+            
             var groundedState = new GroundedState();
             var airborneState = new AirborneState();
             
@@ -102,8 +118,16 @@ namespace Core.Game.Movement.Movement
             _movementData.States.Register(airborneState);
             
             _movementData.States.Register(new IdleState(groundedState));
-            _movementData.States.Register(new WalkState(groundedState));
-            _movementData.States.Register(new SprintState(groundedState));
+            
+            _movementData.States.Register(new WalkAccelerateState(groundedState));
+            _movementData.States.Register(new SprintAccelerateState(groundedState));
+            
+            _movementData.States.Register(new WalkLocomotionState(groundedState));
+            _movementData.States.Register(new SprintLocomotionState(groundedState));
+            
+            _movementData.States.Register(new WalkDecelerateState(groundedState));
+            _movementData.States.Register(new SprintDecelerateState(groundedState));
+            
             _movementData.States.Register(new FallState(airborneState));
             _movementData.States.Register(new JumpState(airborneState));
         }
@@ -136,6 +160,8 @@ namespace Core.Game.Movement.Movement
             ApplyMovement(deltaTime);
             
             _movementData.WasGroundedLastFrame = _movementData.IsGrounded;
+
+            SetAnimatorParameters();
             
             if (showDebugInfo)
                 LogDebugInfo();
@@ -145,7 +171,12 @@ namespace Core.Game.Movement.Movement
         {
             _stateMachine.OnFixedUpdate(fixedDeltaTime);
         }
-        
+
+        public void OnLateUpdate(float deltaTime)
+        {
+            _stateMachine.OnLateUpdate(deltaTime);
+        }
+
         #endregion
         
         #region Physics
@@ -204,7 +235,7 @@ namespace Core.Game.Movement.Movement
                 if (_movementData.IsFalling)
                     gravityMultiplier = movementConfig.FallGravityMultiplier;
                 
-                Vector3 gravityDelta = _movementData.GravityDirection * movementConfig.GravityStrength * gravityMultiplier * deltaTime;
+                Vector3 gravityDelta = _movementData.GravityDirection * (movementConfig.GravityStrength * gravityMultiplier * deltaTime);
                 
                 _movementData.GravityVelocity += gravityDelta;
                 
@@ -296,6 +327,21 @@ namespace Core.Game.Movement.Movement
         {
             _stateMachine.ChangeState(state);
         }
+
+        /// <summary>
+        /// Calculates and returns the normalized movement speed of the character.
+        /// The normalization is performed based on the configured walk and run speeds
+        /// from the <see cref="MovementConfig"/> asset. The value represents the current speed
+        /// as a ratio between walking (0) and running (1).
+        /// </summary>
+        /// <returns>The normalized movement speed as a float between 0 and 1.</returns>
+        public float GetNormalizedMovementSpeed()
+        {
+            float min = movementConfig.WalkSpeed;
+            float max = movementConfig.RunSpeed;
+            
+            return _movementData.CurrentSpeed <= min ? 0f : (_movementData.CurrentSpeed - min) / (max - min);
+        }
         
         #endregion
         
@@ -318,6 +364,23 @@ namespace Core.Game.Movement.Movement
         private void UnregisterFromUpdateService()
         {
             _updateService?.Unregister(this);
+        }
+        
+        #endregion
+        
+        #region Helper Methods
+
+        /// <summary>
+        /// Updates the animator parameters to reflect the current movement state of the player character.
+        /// Adjusts parameters such as grounded status, movement state, and movement speed blending
+        /// based on the <see cref="MovementData"/> and <see cref="MovementConfig"/> values.
+        /// This ensures the animator correctly represents the character's movement behavior in real-time.
+        /// </summary>
+        private void SetAnimatorParameters()
+        {
+            _animator.SetBool("Grounded", IsGrounded);
+            _animator.SetBool("Moving", IsReceivingMovementInput);
+            _animator.SetFloat("MovementBlend", GetNormalizedMovementSpeed());
         }
         
         #endregion

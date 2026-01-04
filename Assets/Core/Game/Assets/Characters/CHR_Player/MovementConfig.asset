@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7b4061ba34d4dd19bd26a0dfca619a5, type: 3}
+  m_Name: MovementConfig
+  m_EditorClassIdentifier: Core.Game.Movement::Core.Game.Movement.Data.MovementConfig
+  walkSpeed: 3
+  runSpeed: 6
+  speedThreshold: 0.95
+  minMoveSpeed: 0.1
+  acceleration: 10
+  deceleration: 15
+  airControlMultiplier: 0.3
+  airAcceleration: 5
+  rotationSpeed: 10
+  gravityStrength: 20
+  terminalVelocity: 50
+  groundingForce: 2
+  fallGravityMultiplier: 1.5
+  jumpForce: 10
+  coyoteTime: 0.15
+  jumpBufferTime: 0.1
+  groundCheckDistance: 0.1
+  inputThreshold: 0.01
