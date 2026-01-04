@@ -17,7 +17,7 @@ MonoBehaviour:
   speedThreshold: 0.95
   minMoveSpeed: 0.1
   acceleration: 10
-  deceleration: 15
+  deceleration: 5
   airControlMultiplier: 0.3
   airAcceleration: 5
   rotationSpeed: 10

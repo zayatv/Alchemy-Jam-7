@@ -18,7 +18,7 @@ namespace Core.Game.Movement.StateMachine.States.Grounded
             
             Vector3 targetVelocity = GetTargetVelocity(data);
             
-            data.MoveVelocity = Vector3.MoveTowards(data.MoveVelocity, targetVelocity, data.Config.Deceleration * deltaTime);
+            data.MoveVelocity = Vector3.Lerp(data.MoveVelocity, targetVelocity, 1f - Mathf.Exp(-data.Config.Deceleration * deltaTime));
         }
         
         public override IMovementState CheckTransitions(MovementData data)

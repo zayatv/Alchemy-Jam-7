@@ -20,7 +20,7 @@ namespace Core.Game.Movement.StateMachine.States
             ApplyAirControl(data, deltaTime);
             
             if (data.MoveVelocity.sqrMagnitude > 0.01f)
-                RotateInAir(data, deltaTime);
+                UpdateRotationTarget(data);
         }
         
         public override IMovementState CheckTransitions(MovementData data)
@@ -54,21 +54,21 @@ namespace Core.Game.Movement.StateMachine.States
         }
 
         /// <summary>
-        /// Gradually rotates the character in the air toward the direction of its movement velocity.
+        /// Updates the target rotation based on the movement velocity when airborne.
         /// </summary>
-        /// <param name="data">The movement data containing the character's current state, configuration, and velocity information.</param>
-        /// <param name="deltaTime">The time elapsed since the last update, used to calculate the rotation speed.</param>
-        private void RotateInAir(MovementData data, float deltaTime)
+        /// <param name="data">The movement data.</param>
+        private void UpdateRotationTarget(MovementData data)
         {
-            float airRotationSpeed = data.Config.RotationSpeed * 0.5f;
+            if (!data.HasMovementInput)
+                return;
+            
             Vector3 moveDirection = data.MoveVelocity.normalized;
             
             if (moveDirection.sqrMagnitude < 0.01f)
                 return;
             
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, data.UpDirection);
-            
-            data.Transform.rotation = Quaternion.Slerp(data.Transform.rotation, targetRotation, airRotationSpeed * deltaTime);
+            data.TargetRotation = Quaternion.LookRotation(moveDirection, data.UpDirection);
+            data.RotationSpeedMultiplier = 0.5f;
         }
     }
 }

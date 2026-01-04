@@ -1,5 +1,4 @@
-﻿using Core.Game.Entities;
-using Core.Game.Movement.Input;
+﻿using Core.Game.Movement.Input;
 using UnityEngine;
 
 namespace Core.Game.Movement.Data
@@ -13,7 +12,6 @@ namespace Core.Game.Movement.Data
         public IMovementInputProvider InputProvider;
         public MovementConfig Config;
         public MovementStates States;
-        public EntityView EntityView;
         
         #endregion
 
@@ -22,12 +20,14 @@ namespace Core.Game.Movement.Data
         public Vector3 MoveVelocity;
         public Vector3 GravityVelocity;
         public Vector3 GravityDirection = Vector3.down;
+
+        public Quaternion TargetRotation;
+        public float RotationSpeedMultiplier = 1f;
         
         #endregion
 
         #region State Data
         
-        public Vector3 MoveDirection;
         public float CurrentSpeed;
         public bool IsGrounded;
         public bool WasGroundedLastFrame;

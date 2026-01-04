@@ -1,5 +1,4 @@
-﻿using Core.Game.Entities;
-using Core.Game.Movement.Input;
+﻿using Core.Game.Movement.Input;
 using Core.Game.Movement.Data;
 using Core.Game.Movement.StateMachine;
 using Core.Game.Movement.StateMachine.States;
@@ -19,9 +18,6 @@ namespace Core.Game.Movement.Movement
     public class MovementController : MonoBehaviour, IFixedUpdatable, IUpdatable, ILateUpdatable
     {
         #region Serialized Fields
-        
-        [Header("References")]
-        [SerializeField] private EntityView entityView;
         
         [Header("Configuration")]
         [SerializeField] private MovementConfig movementConfig;
@@ -52,7 +48,7 @@ namespace Core.Game.Movement.Movement
         public MovementData Data => _movementData;
         public IMovementStateMachine StateMachine => _stateMachine;
         public bool IsGrounded => _movementData.IsGrounded;
-        public bool IsReceivingMovementInput => _movementInputProvider.GetMovementInput().sqrMagnitude > 0f;
+        public bool IsReceivingMovementInput => _movementData.HasMovementInput;
         
         #endregion
         
@@ -96,9 +92,10 @@ namespace Core.Game.Movement.Movement
                 Controller = _characterController,
                 Transform = transform,
                 InputProvider = _movementInputProvider,
-                EntityView = entityView,
                 Config = movementConfig,
-                GravityDirection = Vector3.down
+                GravityDirection = Vector3.down,
+                TargetRotation = transform.rotation,
+                RotationSpeedMultiplier = 1f
             };
         }
 
@@ -158,6 +155,7 @@ namespace Core.Game.Movement.Movement
             
             ApplyGravity(deltaTime);
             ApplyMovement(deltaTime);
+            ApplyRotation(deltaTime);
             
             _movementData.WasGroundedLastFrame = _movementData.IsGrounded;
 
@@ -261,6 +259,22 @@ namespace Core.Game.Movement.Movement
             
             _movementData.CurrentSpeed = _movementData.HorizontalSpeed;
         }
+
+        /// <summary>
+        /// Applies rotation to the character based on the TargetRotation in MovementData.
+        /// Smoothly interpolates the current rotation towards the target rotation.
+        /// </summary>
+        /// <param name="deltaTime">The time elapsed since the last update.</param>
+        private void ApplyRotation(float deltaTime)
+        {
+            float rotationSpeed = _movementData.Config.RotationSpeed * _movementData.RotationSpeedMultiplier;
+            
+            // Only rotate if we are not already very close to the target rotation
+            if (Quaternion.Angle(transform.rotation, _movementData.TargetRotation) > 0.1f)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, _movementData.TargetRotation, rotationSpeed * deltaTime);
+            }
+        }
         
         #endregion
         
@@ -328,19 +342,26 @@ namespace Core.Game.Movement.Movement
             _stateMachine.ChangeState(state);
         }
 
+
         /// <summary>
-        /// Calculates and returns the normalized movement speed of the character.
-        /// The normalization is performed based on the configured walk and run speeds
-        /// from the <see cref="MovementConfig"/> asset. The value represents the current speed
-        /// as a ratio between walking (0) and running (1).
+        /// Calculates and returns the normalized movement speed based on the current speed
+        /// in relation to the defined walking and running speed limits.
+        /// The result is normalized to a range of 0 to 1, where 0 represents no movement,
+        /// 0.5 corresponds to the maximum walking speed, and 1 represents the maximum running speed.
         /// </summary>
-        /// <returns>The normalized movement speed as a float between 0 and 1.</returns>
+        /// <returns>
+        /// A float value between 0 and 1 representing the normalized movement speed.
+        /// </returns>
         public float GetNormalizedMovementSpeed()
         {
-            float min = movementConfig.WalkSpeed;
-            float max = movementConfig.RunSpeed;
-            
-            return _movementData.CurrentSpeed <= min ? 0f : (_movementData.CurrentSpeed - min) / (max - min);
+            float walkSpeed = movementConfig.WalkSpeed;
+            float runSpeed = movementConfig.RunSpeed;
+            float currentSpeed = _movementData.CurrentSpeed;
+
+            if (currentSpeed <= walkSpeed)
+                return Mathf.InverseLerp(0f, walkSpeed, currentSpeed) * 0.5f;
+
+            return 0.5f + Mathf.InverseLerp(walkSpeed, runSpeed, currentSpeed) * 0.5f;
         }
         
         #endregion
