@@ -1,0 +1,107 @@
+﻿using System.Threading;
+using Core.Systems.Loading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using UnityEngine;
+
+namespace Core.Scripts.Systems.Loading.LoadingScreens
+{
+    [RequireComponent(typeof(Canvas))]
+    [RequireComponent(typeof(CanvasGroup))]
+    public class FadeLoadingScreen : MonoBehaviour, ILoadingScreen, ITransitionEffect
+    {
+        #region Serialized Fields
+
+        [Header("Fade Settings")]
+        [SerializeField] private float fadeInDuration = 0.2f;
+        [SerializeField] private Ease fadeInEase = Ease.OutQuad;
+        [SerializeField] private float fadeOutDuration = 0.2f;
+        [SerializeField] private Ease fadeOutEase = Ease.InQuad;
+
+        #endregion
+
+        #region Fields
+
+        private Canvas _canvas;
+        private CanvasGroup _canvasGroup;
+        private bool _isActive;
+        private LoadingOperationData _progress;
+
+        #endregion
+        
+        #region Unity Lifecycle
+
+        private void Awake()
+        {
+            _canvas = GetComponent<Canvas>();
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        #endregion
+        
+        #region ILoadingScreen Implementation
+
+        public bool IsActive => _isActive;
+        public bool CanHide => true;
+        
+        public async UniTask ShowAsync(LoadingOperationData loadingProgress, CancellationToken cancellationToken = default)
+        {
+            EnsureCanvasEnabled();
+            
+            _isActive = true;
+            _progress = loadingProgress;
+            
+            await PlayIntroAsync(cancellationToken);
+        }
+
+        public async UniTask HideAsync(CancellationToken cancellationToken = default)
+        {
+            await PlayOutroAsync(cancellationToken);
+
+            _isActive = false;
+            
+            DisableCanvas();
+        }
+
+        public void UpdateProgress(LoadingOperationData progress)
+        {
+        }
+        
+        #endregion
+        
+        #region ITransitionEffect Implementation
+
+        public float IntroDuration => fadeInDuration;
+        public float OutroDuration => fadeOutDuration;
+        
+        public async UniTask PlayIntroAsync(CancellationToken cancellationToken = default)
+        {
+            await _canvasGroup.DOFade(1f, fadeInDuration).AsyncWaitForCompletion();
+        }
+
+        public async UniTask PlayOutroAsync(CancellationToken cancellationToken = default)
+        {
+            await _canvasGroup.DOFade(0f, fadeInDuration).AsyncWaitForCompletion();
+        }
+        
+        #endregion
+        
+        private void EnsureCanvasEnabled()
+        {
+            if (_canvas != null)
+            {
+                _canvas.enabled = true;
+            }
+
+            gameObject.SetActive(true);
+        }
+        
+        private void DisableCanvas()
+        {
+            if (_canvas != null)
+            {
+                _canvas.enabled = false;
+            }
+        }
+    }
+}

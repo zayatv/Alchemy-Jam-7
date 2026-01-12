@@ -180,17 +180,37 @@ namespace Core.Game.Movement.Movement
         #region Physics
 
         /// <summary>
-        /// Updates the grounded state of the character.
-        /// Determines whether the character is currently grounded by
-        /// querying the <see cref="CharacterController"/> and updates the
-        /// <see cref="MovementData.IsGrounded"/> property accordingly.
-        /// This method ensures that the movement system has accurate information
-        /// about the character's contact with the ground, which can affect
-        /// movement behavior and physics interactions.
+        /// Updates the grounded state of the character using enhanced ground detection.
+        /// Combines CharacterController.isGrounded with downward raycasting to detect
+        /// ground within the snap distance, enabling smooth stair descent.
         /// </summary>
         private void UpdateGroundedState()
         {
-            _movementData.IsGrounded = _characterController.isGrounded;
+            bool wasGroundedByController = _characterController.isGrounded;
+
+            // If CharacterController reports grounded, trust it
+            if (wasGroundedByController)
+            {
+                _movementData.IsGrounded = true;
+                _movementData.DistanceToGround = 0f;
+                _movementData.IsNearGround = true;
+                return;
+            }
+
+            // If not grounded by controller but was grounded last frame and falling slowly,
+            // check if ground is nearby (for stair descent)
+            if (_movementData.WasGroundedLastFrame && !_movementData.IsRising)
+            {
+                bool hasGroundBelow = _movementData.CheckGroundBelow(movementConfig.GroundSnapDistance);
+
+                // Consider grounded if ground is within snap distance
+                _movementData.IsGrounded = hasGroundBelow;
+            }
+            else
+            {
+                _movementData.IsGrounded = false;
+                _movementData.CheckGroundBelow(movementConfig.GroundSnapDistance);
+            }
         }
 
         /// <summary>
@@ -215,30 +235,38 @@ namespace Core.Game.Movement.Movement
 
         /// <summary>
         /// Applies gravitational force to the character based on their current state and direction.
-        /// Adjusts the gravity velocity of the character while respecting configured gravity settings
-        /// such as strength, direction, and terminal velocity.
-        /// This method ensures that gravity is correctly applied during falling, rising, or grounded states.
+        /// Includes ground snapping for smooth stair descent when near ground.
         /// </summary>
         /// <param name="deltaTime">The time elapsed since the last frame, used for calculating gravity adjustments.</param>
         private void ApplyGravity(float deltaTime)
         {
             if (_movementData.IsGrounded && !_movementData.IsRising)
             {
-                _movementData.ApplyGroundingForce();
+                // Apply snapping force if not directly grounded by controller but near ground
+                if (!_characterController.isGrounded && _movementData.IsNearGround && _movementData.WasGroundedLastFrame)
+                {
+                    // Apply extra downward force to snap to stairs/slopes
+                    float snapForce = movementConfig.GravityStrength * 2f;
+                    _movementData.GravityVelocity = _movementData.GravityDirection * snapForce;
+                }
+                else
+                {
+                    _movementData.ApplyGroundingForce();
+                }
             }
             else
             {
                 float gravityMultiplier = 1f;
-                
+
                 if (_movementData.IsFalling)
                     gravityMultiplier = movementConfig.FallGravityMultiplier;
-                
+
                 Vector3 gravityDelta = _movementData.GravityDirection * (movementConfig.GravityStrength * gravityMultiplier * deltaTime);
-                
+
                 _movementData.GravityVelocity += gravityDelta;
-                
+
                 float currentGravitySpeed = _movementData.GravityVelocity.magnitude;
-                
+
                 if (currentGravitySpeed > movementConfig.TerminalVelocity)
                     _movementData.GravityVelocity = _movementData.GravityVelocity.normalized * movementConfig.TerminalVelocity;
             }

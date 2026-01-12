@@ -27,13 +27,15 @@ namespace Core.Game.Movement.Data
         #endregion
 
         #region State Data
-        
+
         public float CurrentSpeed;
         public bool IsGrounded;
         public bool WasGroundedLastFrame;
         public float TimeSinceGrounded;
         public float TimeInAir;
-        
+        public float DistanceToGround;
+        public bool IsNearGround;
+
         #endregion
 
         #region Computed Properties
@@ -163,7 +165,34 @@ namespace Core.Game.Movement.Data
             
             return (forward * input.y + right * input.x).normalized;
         }
-        
+
+        #endregion
+
+        #region Ground Detection
+
+        /// <summary>
+        /// Performs an enhanced ground check using raycasting to detect ground below the character.
+        /// This enables ground snapping for stair descent and better ground detection.
+        /// </summary>
+        /// <param name="maxDistance">Maximum distance to check for ground below</param>
+        /// <returns>True if ground was detected within the specified distance</returns>
+        public bool CheckGroundBelow(float maxDistance)
+        {
+            Vector3 origin = Transform.position;
+            float checkDistance = maxDistance + Controller.skinWidth;
+
+            if (Physics.Raycast(origin, GravityDirection, out RaycastHit hit, checkDistance, Config.GroundLayers, QueryTriggerInteraction.Ignore))
+            {
+                DistanceToGround = hit.distance - Controller.skinWidth;
+                IsNearGround = DistanceToGround <= maxDistance;
+                return IsNearGround;
+            }
+
+            DistanceToGround = maxDistance;
+            IsNearGround = false;
+            return false;
+        }
+
         #endregion
     }
 }

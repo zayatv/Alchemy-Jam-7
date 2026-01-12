@@ -4,7 +4,6 @@ using Core.Systems.Logging;
 using Core.Systems.Input;
 using Core.Systems.ServiceLocator;
 using Core.Systems.Update;
-using UnityEngine;
 
 namespace Core.Game.Input
 {

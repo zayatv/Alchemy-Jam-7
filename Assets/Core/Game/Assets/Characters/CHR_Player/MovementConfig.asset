@@ -23,10 +23,14 @@ MonoBehaviour:
   rotationSpeed: 10
   gravityStrength: 20
   terminalVelocity: 50
-  groundingForce: 2
+  groundingForce: 20
   fallGravityMultiplier: 1.5
   jumpForce: 10
   coyoteTime: 0.15
   jumpBufferTime: 0.1
   groundCheckDistance: 0.1
+  groundSnapDistance: 0.5
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 8
   inputThreshold: 0.01

@@ -1,12 +1,11 @@
 {
-    "name": "Core.Systems.Loading",
+    "name": "Core.Game.Camera",
     "rootNamespace": "",
     "references": [
-        "GUID:caca889fed6088d40b22c2d7e2909c31",
         "GUID:b8113d89f8f6e5342b4060892bb7e558",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:4ca6ae074e609e14bb797e35ce5513b9"
+        "GUID:e1057b8d90080c14ca9e7cf6ebef17b4",
+        "GUID:69a651df3b6ea284ab53b5b0dfa4bb68",
+        "GUID:cbac5b448918a93429358adac78954b4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

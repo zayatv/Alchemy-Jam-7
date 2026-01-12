@@ -79,10 +79,16 @@ namespace Core.Game.Movement.Data
         #endregion
 
         #region Ground Detection
-        
+
         [Header("Ground Detection")]
         [Tooltip("Ground check distance")]
         [SerializeField] private float groundCheckDistance = 0.1f;
+
+        [Tooltip("Maximum distance to snap character down to ground (for stair descent)")]
+        [SerializeField] private float groundSnapDistance = 0.5f;
+
+        [Tooltip("Layer mask for ground detection")]
+        [SerializeField] private LayerMask groundLayers = -1;
 
         #endregion
 
@@ -124,7 +130,9 @@ namespace Core.Game.Movement.Data
         
         // Ground Detection
         public float GroundCheckDistance => groundCheckDistance;
-        
+        public float GroundSnapDistance => groundSnapDistance;
+        public LayerMask GroundLayers => groundLayers;
+
         // Input
         public float InputThreshold => inputThreshold;
 

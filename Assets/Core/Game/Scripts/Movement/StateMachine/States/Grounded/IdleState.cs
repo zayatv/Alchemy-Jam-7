@@ -21,9 +21,6 @@ namespace Core.Game.Movement.StateMachine.States.Grounded
         
         public override IMovementState CheckTransitions(MovementData data)
         {
-            if (!data.IsGrounded)
-                return data.States.Get<FallState>();
-            
             if (data.HasMovementInput)
             {
                 if (data.IsSprintRequested)
