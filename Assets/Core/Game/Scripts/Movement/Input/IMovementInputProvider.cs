@@ -25,16 +25,6 @@ namespace Core.Game.Movement.Input
         bool IsSprintRequested();
 
         /// <summary>
-        /// Checks if the player has pressed the jump input.
-        /// </summary>
-        /// <returns>
-        /// A boolean value indicating whether jump input has been pressed:
-        /// True if the jump input is detected and input is enabled;
-        /// False otherwise.
-        /// </returns>
-        bool IsJumpPressed();
-
-        /// <summary>
         /// Indicates whether input functionality is currently enabled for the player.
         /// </summary>
         /// <returns>

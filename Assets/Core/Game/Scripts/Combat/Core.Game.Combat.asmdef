@@ -1,0 +1,28 @@
+{
+    "name": "Core.Game.Combat",
+    "rootNamespace": "Core.Game.Combat",
+    "references": [
+        "Core.Systems.ServiceLocator",
+        "Core.Systems.Events",
+        "Core.Systems.Combat",
+        "Core.Systems.Grid",
+        "Core.Systems.Logging",
+        "Core.Systems.Bomb",
+        "Core.Systems.Pooling",
+        "Core.Systems.VFX",
+        "Core.Systems.Audio",
+        "Core.Systems.Update",
+        "Core.Systems.Input",
+        "Core.Game.Input",
+        "Core.Game.Inventory"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

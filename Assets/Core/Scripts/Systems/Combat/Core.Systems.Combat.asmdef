@@ -1,0 +1,16 @@
+{
+    "name": "Core.Systems.Combat",
+    "rootNamespace": "Core.Systems.Combat",
+    "references": [
+        "Core.Systems.Grid"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

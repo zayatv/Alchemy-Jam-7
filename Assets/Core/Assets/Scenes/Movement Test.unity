@@ -640,6 +640,50 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &565816295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 565816296}
+  - component: {fileID: 565816297}
+  m_Layer: 0
+  m_Name: Object Pool Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &565816296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565816295}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1445765614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &565816297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565816295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc6a9fb72bd7224eb86896f7e688a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core.Systems.Pooling::Core.Systems.Pooling.ObjectPoolService
 --- !u!1 &719619820
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +777,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &933251778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933251779}
+  - component: {fileID: 933251780}
+  m_Layer: 0
+  m_Name: Audio Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &933251779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933251778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1445765614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &933251780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933251778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0114825111584524aa96c4992a7c1875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core.Systems.Audio::Core.Systems.Audio.AudioService
 --- !u!1 &996243389
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,6 +982,15 @@ MonoBehaviour:
   - rid: 6458487990407659725
   - rid: 6458488034251505765
   - rid: 7801669700246569053
+  - rid: 7801669834857250930
+  - rid: 7801669834857250931
+  - rid: 7801669834857250932
+  - rid: 7801669834857250933
+  - rid: 7801669834857250934
+  - rid: 7801669834857250936
+  - rid: 7801669834857250935
+  - rid: 7801669834857250938
+  - rid: 7801669834857250937
   references:
     version: 2
     RefIds:
@@ -909,6 +1006,52 @@ MonoBehaviour:
       data:
         cameraConfig: {fileID: 11400000, guid: 5f4b7d860cc12e74daa3a2c3fffb5517, type: 2}
         cameraController: {fileID: 330585550}
+    - rid: 7801669834857250930
+      type: {class: ObjectPoolServiceConfig, ns: Core.Systems.Pooling, asm: Core.Systems.Pooling}
+      data:
+        defaultPoolSize: 10
+        service: {fileID: 565816297}
+    - rid: 7801669834857250931
+      type: {class: AudioServiceConfig, ns: Core.Systems.Audio, asm: Core.Systems.Audio}
+      data:
+        audioService: {fileID: 933251780}
+        audioSourcePoolSize: 20
+    - rid: 7801669834857250932
+      type: {class: VFXServiceConfig, ns: Core.Systems.VFX, asm: Core.Systems.VFX}
+      data: 
+    - rid: 7801669834857250933
+      type: {class: GridServiceConfig, ns: Core.Systems.Grid, asm: Core.Systems.Grid}
+      data:
+        gridConfig: {fileID: 11400000, guid: cf9f10830053a88489bc9b4e7d9611fa, type: 2}
+    - rid: 7801669834857250934
+      type: {class: TargetRegistryConfig, ns: Core.Game.Combat, asm: Core.Game.Combat}
+      data: 
+    - rid: 7801669834857250935
+      type: {class: BombServiceConfig, ns: Core.Game.Combat.Bombs, asm: Core.Game.Combat}
+      data:
+        defaultBombDefinition: {fileID: 11400000, guid: 1df2eaf0e55f45b419c2b0222ba6f2c3, type: 2}
+        poolPrewarmCount: 5
+    - rid: 7801669834857250936
+      type: {class: InventoryServiceConfig, ns: Core.Game.Inventory, asm: Core.Game.Inventory}
+      data:
+        startingBombs: 5
+        maxBombs: 99
+    - rid: 7801669834857250937
+      type: {class: BombPlacementConfig, ns: Core.Game.Combat.Bombs, asm: Core.Game.Combat}
+      data: 
+    - rid: 7801669834857250938
+      type: {class: UpgradeServiceConfig, ns: Core.Game.Upgrades, asm: Core.Game.Upgrades}
+      data:
+        stackableUpgrades:
+        - {fileID: 11400000, guid: f0475e28300a53d4cb4117a35f77eb23, type: 2}
+        - {fileID: 11400000, guid: 81f8ba2a556a4814f87504c904159c06, type: 2}
+        - {fileID: 11400000, guid: 0a8efd0c1e5144340ae2f2f796548d5e, type: 2}
+        specialUpgrades:
+        - {fileID: 11400000, guid: aeaf28a30e84f3645baa404be325646a, type: 2}
+        - {fileID: 11400000, guid: 5a4e472fb61b3a541bb46d1af15213d9, type: 2}
+        - {fileID: 11400000, guid: e9e8eebbf805dea46a578b9047f1022f, type: 2}
+        - {fileID: 11400000, guid: d717f903a376e4b47992eceb9ce0ab68, type: 2}
+        specialUpgradeChance: 0.3
 --- !u!1 &1445765613
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +1082,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 719619821}
+  - {fileID: 565816296}
+  - {fileID: 933251779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503263608

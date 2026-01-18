@@ -22,18 +22,12 @@ namespace Core.Game.Movement.StateMachine.States
         {
             base.Update(data, deltaTime);
             
-            if (data.IsJumpPressed)
-                data.BufferJump();
-            
             if (data.MoveVelocity.sqrMagnitude > 0.01f)
                 UpdateRotationTarget(data);
         }
         
         public override IMovementState CheckTransitions(MovementData data)
         {
-            if ((data.IsJumpPressed || data.HasBufferedJump) && data.States.TryGet(out JumpState jumpState))
-                return jumpState;
-            
             return null;
         }
 

@@ -1,0 +1,17 @@
+{
+    "name": "Core.Systems.Pooling",
+    "rootNamespace": "Core.Systems.Pooling",
+    "references": [
+        "Core.Systems.ServiceLocator",
+        "Core.Systems.Logging"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

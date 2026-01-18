@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afa303a2297ab234dbfdd67c3f8f68ba, type: 3}
+  m_Name: BombDefinition
+  m_EditorClassIdentifier: Core.Game.Combat::Core.Game.Combat.Bombs.BombDefinition
+  baseDamage: 1
+  baseRadius: 10
+  baseFuseTime: 3
+  basePlacementCooldown: 1
+  bombPrefab: {fileID: 8398865430899155029, guid: 6c5bd8ca3b3dfa041a37bc8a112452bd, type: 3}
+  fuseVFX: {fileID: 11400000, guid: a47305d93c456204f818687f984c85e1, type: 2}
+  areaIndicatorVFX: {fileID: 11400000, guid: 7a3c7c73b7d526f408aff112fa85d350, type: 2}
+  areaExplosionVFX: {fileID: 11400000, guid: 889755d289d291c41a0e0e1221a81728, type: 2}
+  placementSound: {fileID: 11400000, guid: b0f9fea23550dfe4a851bc204b38c6ce, type: 2}
+  fuseSound: {fileID: 11400000, guid: 125123dd01587f74e9fe20b863f50113, type: 2}
+  explosionSound: {fileID: 11400000, guid: fa8c1f12dbf5bb843820d5bd959c1521, type: 2}

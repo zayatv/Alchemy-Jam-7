@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: Core.Game.Camera::Core.Game.Camera.Data.CameraConfig
   cameraAngle: {x: 60, y: 0, z: 0}
-  lookAheadDistance: 2
-  lookAheadSmoothTime: 0.1
+  lookAheadDistance: 1
+  lookAheadSmoothTime: 0.2
   verticalLookAheadUp: 2
   verticalLookAheadDown: 1.5
   idleZoomDistance: 6
   sprintZoomDistance: 8
   airborneZoomDistance: 10
-  zoomSmoothTime: 10
-  positionSmoothTime: 0.1
+  zoomSmoothTime: 0.2
+  positionSmoothTime: 0
   rotationSmoothSpeed: 5

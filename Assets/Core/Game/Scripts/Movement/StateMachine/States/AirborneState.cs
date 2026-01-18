@@ -14,9 +14,6 @@ namespace Core.Game.Movement.StateMachine.States
         {
             base.Update(data, deltaTime);
             
-            if (data.IsJumpPressed)
-                data.BufferJump();
-            
             ApplyAirControl(data, deltaTime);
             
             if (data.MoveVelocity.sqrMagnitude > 0.01f)
@@ -25,9 +22,6 @@ namespace Core.Game.Movement.StateMachine.States
         
         public override IMovementState CheckTransitions(MovementData data)
         {
-            if (data.CanCoyoteJump && data.IsJumpPressed)
-                return data.States.Get<JumpState>();
-            
             return null;
         }
 

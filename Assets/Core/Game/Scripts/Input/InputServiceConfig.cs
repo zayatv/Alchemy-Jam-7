@@ -21,6 +21,7 @@ namespace Core.Game.Input
             
             _inputService.RegisterContext(new MovementInputContext(_inputActions.Gameplay));
             _inputService.RegisterContext(new InteractionInputContext(_inputActions.Gameplay));
+            _inputService.RegisterContext(new BombInputContext(_inputActions.Gameplay));
             _inputService.RegisterContext(new UIInputContext(_inputActions.UI));
             
             _inputActions.Gameplay.Enable();

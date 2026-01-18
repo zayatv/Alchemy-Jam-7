@@ -42,11 +42,6 @@ namespace Core.Game.Movement.Input
             return _movementInputContext?.IsSprinting ?? false;
         }
 
-        public bool IsJumpPressed()
-        {
-            return _movementInputContext?.IsJumpPressed ?? false;
-        }
-
         public bool IsInputEnabled()
         {
             return _movementInputContext?.IsEnabled ?? false;

@@ -1,0 +1,19 @@
+{
+    "name": "Core.Game.Upgrades",
+    "rootNamespace": "Core.Game.Upgrades",
+    "references": [
+        "Core.Systems.ServiceLocator",
+        "Core.Systems.Logging",
+        "Core.Game.Inventory",
+        "Core.Game.Combat"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

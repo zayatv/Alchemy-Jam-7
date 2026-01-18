@@ -1,0 +1,19 @@
+{
+    "name": "Core.Systems.VFX",
+    "rootNamespace": "Core.Systems.VFX",
+    "references": [
+        "Core.Systems.ServiceLocator",
+        "Core.Systems.Pooling",
+        "Core.Systems.Update",
+        "Core.Systems.Logging"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

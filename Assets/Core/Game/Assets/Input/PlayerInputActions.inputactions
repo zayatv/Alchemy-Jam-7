@@ -34,9 +34,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
+                    "name": "PlaceBomb",
                     "type": "Button",
-                    "id": "3de14d8b-64a8-4baa-9efb-97281c5369a1",
+                    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -123,12 +123,12 @@
                 },
                 {
                     "name": "",
-                    "id": "5009026f-0d04-49c6-ae4e-261f81bee025",
+                    "id": "f1e2d3c4-b5a6-7980-dcba-fe0987654321",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "PlaceBomb",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

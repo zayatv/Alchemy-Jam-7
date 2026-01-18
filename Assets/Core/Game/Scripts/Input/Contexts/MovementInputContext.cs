@@ -12,7 +12,6 @@ namespace Core.Game.Input.Contexts
         
         public Vector2 Movement { get; private set; }
         public bool IsSprinting { get; private set; }
-        public bool IsJumpPressed { get; private set; }
         public bool IsEnabled => _isEnabled;
         
         public MovementInputContext(PlayerInputActions.GameplayActions gameplayActions)
@@ -23,8 +22,6 @@ namespace Core.Game.Input.Contexts
             _gameplayActions.Move.canceled += OnMoveCanceled;
             _gameplayActions.Sprint.performed += ctx => { if (IsEnabled) IsSprinting = true; };
             _gameplayActions.Sprint.canceled += ctx => { if (IsEnabled) IsSprinting = false; };
-            _gameplayActions.Jump.performed += ctx => { if (IsEnabled) IsJumpPressed = true; };
-            _gameplayActions.Jump.canceled += ctx => { if (IsEnabled) IsJumpPressed = false; };
         }
 
         public void Enable()
@@ -42,7 +39,6 @@ namespace Core.Game.Input.Contexts
             
             Movement = Vector2.zero;
             IsSprinting = false;
-            IsJumpPressed = false;
             _isEnabled = false;
         }
         
