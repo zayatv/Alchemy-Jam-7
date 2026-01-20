@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Core.Systems.Logging;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -62,7 +63,7 @@ namespace Core.Systems.Audio
         {
             for (int i = 0; i < poolSize; i++)
             {
-                CreateAudioSource();
+                _audioSourcePool.Add(CreateAudioSource());
             }
 
             _musicSourceA = CreateMusicSource("MusicSourceA");
@@ -113,6 +114,7 @@ namespace Core.Systems.Audio
             if (cue == null)
             {
                 Debug.LogWarning("AudioService: Attempted to play null AudioCue");
+                
                 return AudioHandle.Invalid;
             }
 
@@ -120,11 +122,14 @@ namespace Core.Systems.Audio
             if (clip == null)
             {
                 Debug.LogWarning($"AudioService: No clips assigned to AudioCue '{cue.name}'");
+                
                 return AudioHandle.Invalid;
             }
 
             AudioSource source = GetAudioSource();
+            
             ConfigureAudioSource(source, cue, clip);
+            
             source.transform.SetParent(transform);
             source.transform.position = position;
             source.Play();
@@ -731,11 +736,16 @@ namespace Core.Systems.Audio
 
         private AudioSource GetAudioSource()
         {
+            GameLogger.Log(LogLevel.Debug, $"Getting audio source from pool (size: {_audioSourcePool.Count})");
+            
             if (_audioSourcePool.Count > 0)
             {
                 AudioSource source = _audioSourcePool[_audioSourcePool.Count - 1];
+                
                 _audioSourcePool.RemoveAt(_audioSourcePool.Count - 1);
+                
                 source.gameObject.SetActive(true);
+                
                 return source;
             }
 

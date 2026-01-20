@@ -86,9 +86,9 @@ namespace Core.Game.Combat.Bombs
                 return VFXHandle.Invalid;
 
             Vector3 position = _gridService.TileToCenteredWorld(tile);
-            var handle = _vfxService.Spawn(definition.AreaIndicatorVFX, position);
-            
-            _vfxService.SetScale(handle, Vector3.one * radius);
+            var handle = _vfxService.Spawn(definition.AreaIndicatorVFX, position, Quaternion.identity);
+
+            _vfxService.SetFloat(handle, "Indicator", radius);
 
             return handle;
         }
@@ -106,8 +106,8 @@ namespace Core.Game.Combat.Bombs
             if (definition.AreaExplosionVFX != null)
             {
                 var handle = _vfxService.Spawn(definition.AreaExplosionVFX, position);
-                
-                _vfxService.SetScale(handle, Vector3.one * radius);
+
+                _vfxService.SetFloat(handle, "Explosion", radius);
             }
         }
 

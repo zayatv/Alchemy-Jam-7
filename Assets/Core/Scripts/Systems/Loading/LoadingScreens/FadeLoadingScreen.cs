@@ -8,7 +8,7 @@ namespace Core.Scripts.Systems.Loading.LoadingScreens
 {
     [RequireComponent(typeof(Canvas))]
     [RequireComponent(typeof(CanvasGroup))]
-    public class FadeLoadingScreen : MonoBehaviour, ILoadingScreen, ITransitionEffect
+    public class FadeLoadingScreen : MonoBehaviour, ILoadingScreen
     {
         #region Serialized Fields
 
@@ -51,12 +51,12 @@ namespace Core.Scripts.Systems.Loading.LoadingScreens
             _isActive = true;
             _progress = loadingProgress;
             
-            await PlayIntroAsync(cancellationToken);
+            await UniTask.CompletedTask;
         }
 
         public async UniTask HideAsync(CancellationToken cancellationToken = default)
         {
-            await PlayOutroAsync(cancellationToken);
+            await UniTask.CompletedTask;
 
             _isActive = false;
             
@@ -65,23 +65,6 @@ namespace Core.Scripts.Systems.Loading.LoadingScreens
 
         public void UpdateProgress(LoadingOperationData progress)
         {
-        }
-        
-        #endregion
-        
-        #region ITransitionEffect Implementation
-
-        public float IntroDuration => fadeInDuration;
-        public float OutroDuration => fadeOutDuration;
-        
-        public async UniTask PlayIntroAsync(CancellationToken cancellationToken = default)
-        {
-            await _canvasGroup.DOFade(1f, fadeInDuration).AsyncWaitForCompletion();
-        }
-
-        public async UniTask PlayOutroAsync(CancellationToken cancellationToken = default)
-        {
-            await _canvasGroup.DOFade(0f, fadeInDuration).AsyncWaitForCompletion();
         }
         
         #endregion

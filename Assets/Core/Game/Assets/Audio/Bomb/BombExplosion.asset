@@ -11,12 +11,65 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df13c0fd15b159142b8cae10393d2847, type: 3}
   m_Name: BombExplosion
-  m_EditorClassIdentifier:
-  clips: []
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: e06fa81659e38564a9d7eb38c46c33bd, type: 3}
   volumeRange: {x: 0.9, y: 1}
   pitchRange: {x: 0.9, y: 1.1}
   mixerGroup: {fileID: 0}
   loop: 0
-  spatialBlend: 1
+  priority: 128
+  spatialBlend: 0
+  minDistance: 1
   maxDistance: 30
   rolloffMode: 1
+  useCustomRolloff: 0
+  customRolloffCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  dopplerLevel: 1
+  spread: 0
+  useCustom3DCurves: 0
+  spatialBlendCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMix: 1
+  bypassEffects: 0
+  bypassListenerEffects: 0
+  bypassReverbZones: 0

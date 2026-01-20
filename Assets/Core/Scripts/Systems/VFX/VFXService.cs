@@ -18,6 +18,8 @@ namespace Core.Systems.VFX
 
         private Dictionary<string, List<int>> _categoryHandles = new Dictionary<string, List<int>>();
         
+        private readonly MaterialPropertyBlock _propertyBlock = new MaterialPropertyBlock();
+        
         #endregion
         
         #region Properties
@@ -155,15 +157,46 @@ namespace Core.Systems.VFX
 
             _poolService.Prewarm(pooledPrefab, count);
         }
-        
-        public void SetScale(VFXHandle handle, Vector3 scale)
-        {
-            if (!handle.IsValid)
-                return;
 
+        public void SetFloat(VFXHandle handle, string name, float value)
+        {
+            if (!handle.IsValid) 
+                return;
+            
             if (_activeVFX.TryGetValue(handle.Id, out VFXInstance instance))
             {
-                instance.ParticleSystem.transform.localScale = scale;
+                if (instance.PropertyBinder == null)
+                    return;
+
+                instance.PropertyBinder.ApplyFloat(name, value);
+            }
+        }
+
+        public void SetVector(VFXHandle handle, string name, Vector4 value)
+        {
+            if (!handle.IsValid) 
+                return;
+            
+            if (_activeVFX.TryGetValue(handle.Id, out VFXInstance instance))
+            {
+                if (instance.PropertyBinder == null)
+                    return;
+
+                instance.PropertyBinder.ApplyVector(name, value);
+            }
+        }
+
+        public void SetColor(VFXHandle handle, string name, Color value)
+        {
+            if (!handle.IsValid) 
+                return;
+            
+            if (_activeVFX.TryGetValue(handle.Id, out VFXInstance instance))
+            {
+                if (instance.PropertyBinder == null)
+                    return;
+
+                instance.PropertyBinder.ApplyColor(name, value);
             }
         }
         

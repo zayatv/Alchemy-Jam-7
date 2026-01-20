@@ -6,6 +6,9 @@ namespace Core.Systems.VFX
     {
         public PooledParticleSystem PooledPS;
         public ParticleSystem ParticleSystem;
+        public ParticleSystem[] ChildParticleSystems;
+        public ParticleSystemRenderer[] Renderers;
+        public VFXPropertyBinder PropertyBinder;
         public VFXCue Cue;
         public float SpawnTime;
 
@@ -13,6 +16,9 @@ namespace Core.Systems.VFX
         {
             PooledPS = pooledPS;
             ParticleSystem = ps;
+            ChildParticleSystems = pooledPS.GetComponentsInChildren<ParticleSystem>();
+            Renderers = pooledPS.GetComponentsInChildren<ParticleSystemRenderer>();
+            PropertyBinder = pooledPS.GetComponent<VFXPropertyBinder>();
             Cue = cue;
             SpawnTime = spawnTime;
         }

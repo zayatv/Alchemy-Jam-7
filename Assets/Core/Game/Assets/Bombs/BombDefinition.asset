@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BombDefinition
   m_EditorClassIdentifier: Core.Game.Combat::Core.Game.Combat.Bombs.BombDefinition
   baseDamage: 1
-  baseRadius: 10
+  baseRadius: 6
   baseFuseTime: 3
   basePlacementCooldown: 1
   bombPrefab: {fileID: 8398865430899155029, guid: 6c5bd8ca3b3dfa041a37bc8a112452bd, type: 3}

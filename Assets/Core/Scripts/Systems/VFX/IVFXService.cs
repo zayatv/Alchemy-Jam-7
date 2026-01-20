@@ -55,10 +55,18 @@ namespace Core.Systems.VFX
         void Prewarm(VFXCue cue, int count);
 
         /// <summary>
-        /// Sets the scale of a VFX instance.
+        /// Sets a float property on the VFX instance's material.
         /// </summary>
-        /// <param name="handle">Handle to the VFX instance</param>
-        /// <param name="scale">New scale to apply</param>
-        void SetScale(VFXHandle handle, Vector3 scale);
+        void SetFloat(VFXHandle handle, string name, float value);
+
+        /// <summary>
+        /// Sets a vector property on the VFX instance's material.
+        /// </summary>
+        void SetVector(VFXHandle handle, string name, Vector4 value);
+
+        /// <summary>
+        /// Sets a color property on the VFX instance's material.
+        /// </summary>
+        void SetColor(VFXHandle handle, string name, Color value);
     }
 }

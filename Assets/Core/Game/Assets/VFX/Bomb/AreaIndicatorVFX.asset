@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c117109a2095c944a67df968b289e70, type: 3}
   m_Name: AreaIndicatorVFX
   m_EditorClassIdentifier: 
-  prefab: {fileID: 6279288896328315013, guid: ae6f267b4c3b8394da863fc2c45ac044, type: 3}
+  prefab: {fileID: 7608928669033647364, guid: 38309ee7c13cbad46a6a66e2428abc5b, type: 3}
   duration: 0
   autoReturnOnComplete: 1
   prewarmCount: 20
