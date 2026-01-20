@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619640c6b1d3db7499f82659c6098088, type: 3}
+  m_Name: PickupConfig
+  m_EditorClassIdentifier: Core.Game.Pickups::Core.Game.Pickups.PickupConfig
+  healthPickupPrefab: {fileID: 3616312867903816835, guid: f3df026e151d9d44c95a20086abc8afb, type: 3}
+  defaultHealAmount: 1
+  upgradePickupPrefab: {fileID: 0}
+  defaultSpecialChance: 0.3
+  bombPickupPrefab: {fileID: 0}
+  defaultBombCount: 1
+  prewarmCount: 5

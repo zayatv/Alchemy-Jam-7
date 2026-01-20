@@ -28,6 +28,10 @@ namespace Core.Game.Combat.Bombs
         [SerializeField] private AudioCue fuseSound;
         [SerializeField] private AudioCue explosionSound;
 
+        [Header("Explosion Blocking")]
+        [Tooltip("Layers that block explosion damage (e.g., walls)")]
+        [SerializeField] private LayerMask explosionBlockingLayers;
+
         #endregion
 
         #region Properties
@@ -86,6 +90,11 @@ namespace Core.Game.Combat.Bombs
         /// Gets the audio cue for the explosion.
         /// </summary>
         public AudioCue ExplosionSound => explosionSound;
+
+        /// <summary>
+        /// Gets the layer mask for objects that block explosion damage.
+        /// </summary>
+        public LayerMask ExplosionBlockingLayers => explosionBlockingLayers;
 
         #endregion
 

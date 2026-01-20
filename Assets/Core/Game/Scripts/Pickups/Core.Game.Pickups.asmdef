@@ -1,0 +1,24 @@
+{
+    "name": "Core.Game.Pickups",
+    "rootNamespace": "Core.Game.Pickups",
+    "references": [
+        "Core.Systems.ServiceLocator",
+        "Core.Systems.Events",
+        "Core.Systems.Pooling",
+        "Core.Systems.VFX",
+        "Core.Systems.Audio",
+        "Core.Game.Combat",
+        "Core.Game.Inventory",
+        "Core.Game.Upgrades",
+        "Core.Systems.Logging"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

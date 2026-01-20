@@ -1,0 +1,23 @@
+{
+    "name": "Core.Game.Destructibles",
+    "rootNamespace": "Core.Game.Destructibles",
+    "references": [
+        "Core.Systems.ServiceLocator",
+        "Core.Systems.Events",
+        "Core.Systems.VFX",
+        "Core.Systems.Audio",
+        "Core.Systems.Combat",
+        "Core.Game.Combat",
+        "Core.Game.Pickups",
+        "Core.Game.Upgrades"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -15,12 +15,12 @@ namespace Core.Game.Movement.StateMachine
 
         public virtual void Enter(MovementData data)
         {
-            LogStateChange($"Entering {StateName}", data);
+            //LogStateChange($"Entering {StateName}", data);
         }
 
         public virtual void Exit(MovementData data)
         {
-            LogStateChange($"Exiting {StateName}", data);
+            //LogStateChange($"Exiting {StateName}", data);
         }
 
         public virtual void Update(MovementData data, float deltaTime)

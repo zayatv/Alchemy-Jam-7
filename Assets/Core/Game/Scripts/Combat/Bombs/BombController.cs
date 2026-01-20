@@ -198,8 +198,7 @@ namespace Core.Game.Combat.Bombs
         {
             var radius = _stats.GetExplosionRadius();
             var targets = _targetRegistry.GetTargetsInRadius(centerPosition, radius);
-            
-            Debug.Log($"Applying damage to {targets.Count} targets.");
+            var blockingLayers = _definition.ExplosionBlockingLayers;
 
             foreach (var target in targets)
             {
@@ -207,6 +206,9 @@ namespace Core.Game.Combat.Bombs
                     continue;
 
                 if (!ShouldDamageTarget(target))
+                    continue;
+
+                if (IsExplosionBlocked(centerPosition, target.Transform.position, blockingLayers))
                     continue;
 
                 if (target is IDamageable damageable)
@@ -223,6 +225,17 @@ namespace Core.Game.Combat.Bombs
                     damageable.TakeDamage(damageInfo);
                 }
             }
+        }
+
+        private bool IsExplosionBlocked(Vector3 explosionCenter, Vector3 targetPosition, LayerMask blockingLayers)
+        {
+            if (blockingLayers == 0)
+                return false;
+
+            Vector3 direction = targetPosition - explosionCenter;
+            float distance = direction.magnitude;
+
+            return Physics.Raycast(explosionCenter, direction.normalized, distance, blockingLayers);
         }
 
         private bool ShouldDamageTarget(ITargetable target)

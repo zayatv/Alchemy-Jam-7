@@ -30,6 +30,8 @@ namespace Core.Systems.Pooling
 
             int instanceId = instance.GetInstanceID();
             _instanceToPrefabId[instanceId] = prefabId;
+            
+            GameLogger.Log(LogLevel.Debug, $"Spawned {prefab.name} (Instance ID: {instanceId}) in Pool {pool.AvailableCount}");
 
             return instance;
         }
