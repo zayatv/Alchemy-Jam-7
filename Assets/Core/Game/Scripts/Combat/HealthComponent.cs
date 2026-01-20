@@ -32,6 +32,7 @@ namespace Core.Game.Combat
         private int _currentHealth;
         private Collider _collider;
         private IGridService _gridService;
+        private float _immunityTimer;
 
         #endregion
 
@@ -109,10 +110,17 @@ namespace Core.Game.Combat
         #endregion
 
         #region Events
-        
+
         public event Action<DamageInfo> OnDamageReceived;
         public event Action OnDeath;
         public event Action<int, int> OnHealthChanged;
+        public event Action<bool> OnImmunityChanged;
+
+        #endregion
+
+        #region Properties
+
+        public bool IsImmune => _immunityTimer > 0f;
 
         #endregion
 
@@ -132,6 +140,21 @@ namespace Core.Game.Combat
             ServiceLocator.TryGet(out _gridService);
         }
 
+        private void Update()
+        {
+            if (_immunityTimer <= 0f)
+                return;
+
+            _immunityTimer -= Time.deltaTime;
+
+            if (_immunityTimer <= 0f)
+            {
+                _immunityTimer = 0f;
+                
+                OnImmunityChanged?.Invoke(false);
+            }
+        }
+
         #endregion
 
         #region IDamageable Implementation
@@ -141,10 +164,11 @@ namespace Core.Game.Combat
             if (!IsAlive)
                 return;
 
-            if (ShouldIgnoreDamage(damage))
+            if (IsImmune)
                 return;
 
-            int oldHealth = _currentHealth;
+            if (ShouldIgnoreDamage(damage))
+                return;
 
             _currentHealth -= damage.Amount;
             _currentHealth = Mathf.Max(0, _currentHealth);
@@ -160,7 +184,13 @@ namespace Core.Game.Combat
             });
 
             if (_currentHealth <= 0)
+            {
                 HandleDeath(damage);
+            }
+            else
+            {
+                StartImmunity();
+            }
         }
 
         #endregion
@@ -211,6 +241,38 @@ namespace Core.Game.Combat
             }
         }
 
+        /// <summary>
+        /// Grants temporary immunity for the specified duration.
+        /// </summary>
+        /// <param name="duration">Duration of immunity in seconds.</param>
+        public void GrantImmunity(float duration)
+        {
+            if (duration <= 0f)
+                return;
+
+            bool wasImmune = IsImmune;
+            
+            _immunityTimer = Mathf.Max(_immunityTimer, duration);
+
+            if (!wasImmune)
+            {
+                OnImmunityChanged?.Invoke(true);
+            }
+        }
+
+        /// <summary>
+        /// Clears any active immunity immediately.
+        /// </summary>
+        public void ClearImmunity()
+        {
+            if (!IsImmune)
+                return;
+
+            _immunityTimer = 0f;
+            
+            OnImmunityChanged?.Invoke(false);
+        }
+
         #endregion
 
         #region Private Methods
@@ -227,6 +289,19 @@ namespace Core.Game.Combat
                 return false;
 
             return bombService.CurrentStats.PlayerImmuneToBombs;
+        }
+
+        private void StartImmunity()
+        {
+            if (config == null || !config.EnableDamageImmunity)
+                return;
+
+            if (config.ImmunityDuration <= 0f)
+                return;
+
+            _immunityTimer = config.ImmunityDuration;
+            
+            OnImmunityChanged?.Invoke(true);
         }
 
         private void HandleDeath(DamageInfo finalBlow)
