@@ -8,16 +8,11 @@ namespace Core.Systems.UI.HUD
     [Serializable]
     public class HUDServiceConfig : ServiceConfig
     {
-        [Header("HUD Items")]
-        [Tooltip("All HUD items this manager controls. Auto-populated if empty.")]
-        [SerializeField]
-        private List<HUDItem> hudItems = new List<HUDItem>();
-        
         private IHUDService _hudService;
         
         public override void Install(IServiceInstallHelper helper)
         {
-            _hudService = new HUDService(hudItems);
+            _hudService = new HUDService();
             
             helper.Register(_hudService);
         }

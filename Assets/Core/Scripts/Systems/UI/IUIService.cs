@@ -20,6 +20,24 @@ namespace Core.Systems.UI
         Stack<Menu> MenuStack { get; }
 
         /// <summary>
+        /// Adds the specified menu to the menu stack while maintaining the active UI state.
+        /// This can be used to register a menu in the current UI flow.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu to be added to the menu stack. This menu will become part of the current UI context.
+        /// </param>
+        void AddMenu(Menu menu);
+
+        /// <summary>
+        /// Removes the specified menu from the menu stack and updates the active UI state.
+        /// This can be used to deregister a menu from the current UI flow.
+        /// </summary>
+        /// <param name="menu">
+        /// The menu to be removed from the menu stack. This menu will no longer be part of the current UI context.
+        /// </param>
+        void RemoveMenu(Menu menu);
+
+        /// <summary>
         /// Opens a menu of the specified type. Allows customization for closing the previous menu
         /// and animating transitions between menus.
         /// </summary>

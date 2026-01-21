@@ -12,8 +12,8 @@ namespace Core.Systems.UI
     {
         #region Fields
 
-        private readonly Stack<Menu> _menuStack = new Stack<Menu>();
-        private readonly Menu[] _allMenus;
+        private readonly Stack<Menu> _menuStack = new();
+        private readonly List<Menu> _allMenus = new();
         private bool _isTransitioning = false;
         private bool _isHudVisibleBeforeOpeningMenu;
 
@@ -26,17 +26,27 @@ namespace Core.Systems.UI
 
         #endregion
 
-        public UIService(params Menu[] menus)
+        public void AddMenu(Menu menu)
         {
-            _allMenus = menus;
+            _allMenus.Add(menu);
             
-            foreach (var menu in _allMenus)
+            if (!menu.OpenByDefault)
             {
-                if (menu != null && !menu.OpenByDefault)
-                    menu.gameObject.SetActive(false);
+                menu.gameObject.SetActive(false);
+                    
+                return;
             }
+                
+            OpenMenu(menu.GetType());
         }
-        
+
+        public void RemoveMenu(Menu menu)
+        {
+            CloseAllMenus(false);
+            
+            _allMenus.Remove(menu);
+        }
+
         public void OpenMenu(Type menuType, bool closePrevious = false, bool animatePreviousOut = true)
         {
             if (_isTransitioning) return;

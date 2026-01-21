@@ -52,7 +52,6 @@ namespace Core.Systems.UI.HUD
             HUDService = service;
             doTweenAnimationService = ServiceLocator.ServiceLocator.Get<DOTweenAnimationService>();
 
-            // Cache event types
             CacheEventTypes(config.ShowOnEvents, _showEvents);
             CacheEventTypes(config.HideOnEvents, _hideEvents);
             CacheEventTypes(config.UpdateOnEvents, _updateEvents);

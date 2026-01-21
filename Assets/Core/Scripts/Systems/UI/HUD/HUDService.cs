@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Core.Systems.Events;
 using Core.Systems.Logging;
 using Core.Systems.UI.Events;
-using UnityEngine;
 
 namespace Core.Systems.UI.HUD
 {
@@ -13,12 +11,12 @@ namespace Core.Systems.UI.HUD
     {
         #region Fields
 
-        private List<HUDItem> _hudItems;
-        private Dictionary<Type, List<HUDItem>> _eventToItemsMap = new Dictionary<Type, List<HUDItem>>();
-        private HashSet<string> _hudHideRequests = new HashSet<string>();
+        private List<HUDItem> _hudItems = new();
+        private Dictionary<Type, List<HUDItem>> _eventToItemsMap = new();
+        private HashSet<string> _hudHideRequests = new();
         private bool _isHUDActive = true;
 
-        private Dictionary<Type, Delegate> _eventDelegates = new Dictionary<Type, Delegate>();
+        private Dictionary<Type, Delegate> _eventDelegates = new();
         private MethodInfo _subscribeMethod;
         private MethodInfo _unsubscribeMethod;
         private MethodInfo _onGameEventMethod;
@@ -31,12 +29,9 @@ namespace Core.Systems.UI.HUD
         
         #endregion
 
-        public HUDService(List<HUDItem> hudItems)
+        public HUDService()
         {
-            _hudItems = hudItems;
-            
             InitializeReflection();
-            InitializeHUDItems();
         }
         
         private void InitializeReflection()
@@ -44,24 +39,6 @@ namespace Core.Systems.UI.HUD
             _subscribeMethod = typeof(EventBus).GetMethod("Subscribe");
             _unsubscribeMethod = typeof(EventBus).GetMethod("Unsubscribe");
             _onGameEventMethod = typeof(HUDService).GetMethod(nameof(OnGameEvent), BindingFlags.NonPublic | BindingFlags.Instance);
-        }
-
-        private void InitializeHUDItems()
-        {
-            if (_hudItems == null || _hudItems.Count == 0)
-            {
-                _hudItems = GameObject.FindObjectsByType<HUDItem>(FindObjectsInactive.Include, FindObjectsSortMode.None).ToList();
-            }
-
-            foreach (var item in _hudItems)
-            {
-                if (item != null)
-                {
-                    item.Initialize(this);
-                    
-                    RegisterItemForEvents(item);
-                }
-            }
         }
         
         private void RegisterItemForEvents(HUDItem item)
@@ -90,16 +67,22 @@ namespace Core.Systems.UI.HUD
                 }
             }
         }
+
+        private void UnregisterItemForEvents(HUDItem item)
+        {
+            foreach (var kvp in _eventToItemsMap)
+            {
+                kvp.Value.Remove(item);
+            }
+        }
         
         public void SubscribeToEvents()
         {
-            // Subscribe to all dynamic events from items
             foreach (var type in _eventToItemsMap.Keys)
             {
                 SubscribeToType(type);
             }
             
-            // Internal subscriptions
             EventBus.Subscribe<MenuOpenEvent>(OnMenuOpened);
             EventBus.Subscribe<MenuCloseEvent>(OnMenuClosed);
         }
@@ -114,6 +97,7 @@ namespace Core.Systems.UI.HUD
                 if (_unsubscribeMethod != null)
                 {
                     var genericUnsub = _unsubscribeMethod.MakeGenericMethod(type);
+                    
                     genericUnsub.Invoke(null, new object[] { del });
                 }
             }
@@ -127,12 +111,10 @@ namespace Core.Systems.UI.HUD
         {
             if (_eventDelegates.ContainsKey(type)) return;
 
-            // Create OnGameEvent<T> delegate
             var genericHandler = _onGameEventMethod.MakeGenericMethod(type);
             var del = Delegate.CreateDelegate(typeof(Action<>).MakeGenericType(type), this, genericHandler);
-            
-            // Call EventBus.Subscribe<T>(del)
             var genericSub = _subscribeMethod.MakeGenericMethod(type);
+            
             genericSub.Invoke(null, new object[] { del });
             
             _eventDelegates[type] = del;
@@ -238,18 +220,31 @@ namespace Core.Systems.UI.HUD
                 
                 RegisterItemForEvents(item);
                 
-                // If added at runtime, ensure we subscribe to new events
                 var runtimeEvents = new HashSet<string>();
+                
                 runtimeEvents.UnionWith(item.Config.ShowOnEvents);
                 runtimeEvents.UnionWith(item.Config.HideOnEvents);
                 runtimeEvents.UnionWith(item.Config.UpdateOnEvents);
 
                 foreach (var evt in runtimeEvents)
                 {
-                    if (string.IsNullOrEmpty(evt)) continue;
+                    if (string.IsNullOrEmpty(evt))
+                        continue;
                     var t = Type.GetType(evt);
-                    if (t != null) SubscribeToType(t);
+                    
+                    if (t != null) 
+                        SubscribeToType(t);
                 }
+            }
+        }
+
+        public void UnregisterItem(HUDItem item)
+        {
+            if (_hudItems.Contains(item))
+            {
+                UnregisterItemForEvents(item);
+                
+                _hudItems.Remove(item);
             }
         }
 

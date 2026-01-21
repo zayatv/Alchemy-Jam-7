@@ -15,6 +15,7 @@ namespace Core.Systems.UI.HUD
         T GetItem<T>(string itemName) where T : HUDItem;
         
         void RegisterItem(HUDItem item);
+        void UnregisterItem(HUDItem item);
         void SubscribeToEvents();
         void UnsubscribeFromEvents();
     }
