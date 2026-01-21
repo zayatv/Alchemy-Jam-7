@@ -3,6 +3,7 @@ using Core.Game.Camera.Data;
 using Core.Game.Movement.Movement;
 using Core.Systems.Update;
 using Core.Systems.Logging;
+using DG.Tweening;
 
 namespace Core.Game.Camera
 {
@@ -314,6 +315,14 @@ namespace Core.Game.Camera
         public bool IsFollowingTarget()
         {
             return _targetTransform != null && _targetMovementController != null;
+        }
+
+        /// <inheritdoc />
+        public void ShakeCamera(float duration, float strength = 1f, int vibrato = 10, float randomness = 90f, bool fadeOut = true)
+        {
+            if (_cameraController == null) return;
+            
+            _cameraController.transform.DOShakePosition(duration, strength, vibrato, randomness, fadeOut);
         }
     }
 }

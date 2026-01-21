@@ -65,5 +65,15 @@ namespace Core.Game.Camera
         /// </summary>
         /// <returns>True if following a target, false otherwise</returns>
         bool IsFollowingTarget();
+
+        /// <summary>
+        /// Apply a camera shake effect.
+        /// </summary>
+        /// <param name="duration">Duration of the shake in seconds.</param>
+        /// <param name="strength">Strength of the shake (default 1).</param>
+        /// <param name="vibrato">How much the camera shakes (default 10).</param>
+        /// <param name="randomness">Randomness of the shake (default 90).</param>
+        /// <param name="fadeOut">If true, the shake will fade out.</param>
+        void ShakeCamera(float duration, float strength = 1f, int vibrato = 10, float randomness = 90f, bool fadeOut = true);
     }
 }
