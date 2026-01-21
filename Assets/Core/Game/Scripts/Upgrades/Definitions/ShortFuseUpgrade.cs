@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Game.Upgrades.Definitions
 {
-    [CreateAssetMenu(fileName = "ShortFuse", menuName = "Game/Upgrades/Special/Short Fuse")]
+    [CreateAssetMenu(fileName = "ShortFuse", menuName = "Core/Game/Upgrades/Special/Short Fuse")]
     public class ShortFuseUpgrade : SpecialUpgradeDefinition
     {
         #region Serialized Fields

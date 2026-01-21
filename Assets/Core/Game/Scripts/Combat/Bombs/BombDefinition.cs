@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Game.Combat.Bombs
 {
-    [CreateAssetMenu(fileName = "NewBombDefinition", menuName = "Game/Combat/Bomb Definition")]
+    [CreateAssetMenu(fileName = "NewBombDefinition", menuName = "Core/Game/Combat/Bomb Definition")]
     public class BombDefinition : ScriptableObject
     {
         #region Serialized Fields

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Core.Game.Upgrades.Definitions
 {
-    [CreateAssetMenu(fileName = "InfiniteBombs", menuName = "Game/Upgrades/Special/Infinite Bombs")]
+    [CreateAssetMenu(fileName = "InfiniteBombs", menuName = "Core/Game/Upgrades/Special/Infinite Bombs")]
     public class InfiniteBombsUpgrade : SpecialUpgradeDefinition
     {
         #region UpgradeDefinition Overrides

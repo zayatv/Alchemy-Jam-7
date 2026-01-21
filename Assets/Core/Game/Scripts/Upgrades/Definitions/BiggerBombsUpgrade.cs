@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Game.Upgrades.Definitions
 {
-    [CreateAssetMenu(fileName = "BiggerBombs", menuName = "Game/Upgrades/Stackable/Bigger Bombs")]
+    [CreateAssetMenu(fileName = "BiggerBombs", menuName = "Core/Game/Upgrades/Stackable/Bigger Bombs")]
     public class BiggerBombsUpgrade : StackableUpgradeDefinition
     {
         #region Serialized Fields

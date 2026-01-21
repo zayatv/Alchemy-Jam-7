@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Game.Upgrades.Definitions
 {
-    [CreateAssetMenu(fileName = "RemoteBombs", menuName = "Game/Upgrades/Special/Remote Bombs")]
+    [CreateAssetMenu(fileName = "RemoteBombs", menuName = "Core/Game/Upgrades/Special/Remote Bombs")]
     public class RemoteBombsUpgrade : SpecialUpgradeDefinition
     {
         #region UpgradeDefinition Overrides

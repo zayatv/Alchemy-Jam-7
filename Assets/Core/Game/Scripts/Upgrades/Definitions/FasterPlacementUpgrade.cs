@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Game.Upgrades.Definitions
 {
-    [CreateAssetMenu(fileName = "FasterPlacement", menuName = "Game/Upgrades/Stackable/Faster Placement")]
+    [CreateAssetMenu(fileName = "FasterPlacement", menuName = "Core/Game/Upgrades/Stackable/Faster Placement")]
     public class FasterPlacementUpgrade : StackableUpgradeDefinition
     {
         #region Serialized Fields

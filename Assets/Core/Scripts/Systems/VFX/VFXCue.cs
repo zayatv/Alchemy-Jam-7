@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Systems.VFX
 {
-    [CreateAssetMenu(fileName = "NewVFXCue", menuName = "VFX/VFX Cue")]
+    [CreateAssetMenu(fileName = "NewVFXCue", menuName = "Core/VFX/VFX Cue")]
     public class VFXCue : ScriptableObject
     {
         #region Fields

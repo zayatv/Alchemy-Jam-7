@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Game.Upgrades.Definitions
 {
-    [CreateAssetMenu(fileName = "BombproofVest", menuName = "Game/Upgrades/Special/Bombproof Vest")]
+    [CreateAssetMenu(fileName = "BombproofVest", menuName = "Core/Game/Upgrades/Special/Bombproof Vest")]
     public class BombproofVestUpgrade : SpecialUpgradeDefinition
     {
         #region UpgradeDefinition Overrides
