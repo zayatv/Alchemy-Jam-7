@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Systems.Events;
 using Core.Systems.Logging;
 using Core.Systems.Input;
+using Core.Systems.UI.Events;
 using Core.Systems.Update;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Core.Game.Input.Contexts
@@ -11,6 +14,7 @@ namespace Core.Game.Input.Contexts
     {
         private readonly PlayerInputActions.UIActions _uiActions;
         private readonly Stack<Action> _escapeHandlers = new Stack<Action>();
+        private readonly HashSet<string> _cursorRequests = new HashSet<string>();
         
         private bool _isEnabled;
         
@@ -24,6 +28,8 @@ namespace Core.Game.Input.Contexts
             _uiActions = uiActions;
             
             _uiActions.Cancel.performed += OnCancelPerformed;
+            
+            RegisterUIMenuEvents();
         }
 
         public void Enable()
@@ -42,6 +48,8 @@ namespace Core.Game.Input.Contexts
             CancelPressed = false;
             _isEnabled = false;
         }
+        
+        #region Escape Handlers
 
         /// <summary>
         /// Adds a new escape handler to the stack of escape handlers.
@@ -96,12 +104,42 @@ namespace Core.Game.Input.Contexts
             GameLogger.Log(LogLevel.Debug, $"Cleared {count} escape handlers from stack");
         }
         
+        #endregion
+        
+        #region Cursor Requests
+
+        public void RequestCursor(string reason)
+        {
+            _cursorRequests.Add(reason);
+            
+            UpdateCursorState();
+        }
+
+        public void ReleaseCursor(string reason)
+        {
+            _cursorRequests.Remove(reason);
+            
+            UpdateCursorState();
+        }
+        
+        private void UpdateCursorState()
+        {
+            bool shouldShow = _cursorRequests.Count > 0;
+            Cursor.visible = shouldShow;
+            Cursor.lockState = shouldShow ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+        
+        #endregion
+        
         public void OnLateUpdate(float deltaTime)
         {
             if (!IsEnabled)
                 return;
 
             CancelPressed = false;
+            
+            if (Mouse.current.leftButton.wasPressedThisFrame && _cursorRequests.Count == 0 && Cursor.lockState != CursorLockMode.Locked)
+                UpdateCursorState();
         }
 
         /// <summary>
@@ -123,6 +161,25 @@ namespace Core.Game.Input.Contexts
                 
                 handler?.Invoke();
             }
+        }
+
+        private void RegisterUIMenuEvents()
+        {
+            EventBus.Subscribe<MenuOpenEvent>(eventData =>
+            {
+                PushEscapeHandler(eventData.Menu.OnBackPressed);
+                RequestCursor(eventData.Menu.GetType().Name);
+            });
+            
+            EventBus.Subscribe<MenuCloseEvent>(eventData =>
+            {
+                if (_escapeHandlers.TryPeek(out var handler) && handler == eventData.Menu.OnBackPressed)
+                {
+                    _escapeHandlers.Pop();
+                }
+                
+                ReleaseCursor(eventData.Menu.GetType().Name);
+            });
         }
     }
 }

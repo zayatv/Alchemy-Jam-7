@@ -198,6 +198,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &119815420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119815421}
+  - component: {fileID: 119815422}
+  m_Layer: 0
+  m_Name: DOTween Animation Service
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &119815421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119815420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1445765614}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &119815422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119815420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7e09ad28cd9084c9214ca237ce96c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Core.Systems.Animations::Core.Systems.Animations.DOTweenAnimationService
 --- !u!1 &259869033
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,6 +1036,9 @@ MonoBehaviour:
   - rid: 7801669834857250938
   - rid: 7801669834857250937
   - rid: 7801669876655063176
+  - rid: 7801669904582574357
+  - rid: 7801669904582574358
+  - rid: 7801669904582574362
   references:
     version: 2
     RefIds:
@@ -1057,6 +1104,18 @@ MonoBehaviour:
       type: {class: PickupServiceConfig, ns: Core.Game.Pickups, asm: Core.Game.Pickups}
       data:
         pickupConfig: {fileID: 11400000, guid: 9edf42f7abd42f54588f782781b6677a, type: 2}
+    - rid: 7801669904582574357
+      type: {class: DOTweenAnimationServiceConfig, ns: Core.Systems.Animations, asm: Core.Systems.Animations}
+      data:
+        _service: {fileID: 119815422}
+    - rid: 7801669904582574358
+      type: {class: UIServiceConfig, ns: Core.Systems.UI, asm: Core.Systems.UI}
+      data:
+        allMenus: []
+    - rid: 7801669904582574362
+      type: {class: HUDServiceConfig, ns: Core.Systems.UI.HUD, asm: Core.Systems.UI}
+      data:
+        hudItems: []
 --- !u!1 &1445765613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,6 +1148,7 @@ Transform:
   - {fileID: 719619821}
   - {fileID: 565816296}
   - {fileID: 933251779}
+  - {fileID: 119815421}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1503263608
@@ -1253,6 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Core.Game.Destructibles::Core.Game.Destructibles.Destructible
   config: {fileID: 11400000, guid: f8db15cf5972b8942841a1637b4ec228, type: 2}
+  destroyOnDeath: 1
 --- !u!114 &1817415572
 MonoBehaviour:
   m_ObjectHideFlags: 0

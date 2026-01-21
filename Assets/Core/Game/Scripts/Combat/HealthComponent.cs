@@ -314,16 +314,6 @@ namespace Core.Game.Combat
                 FinalBlow = finalBlow,
                 TargetType = targetType
             });
-
-            if (targetType == TargetType.Player)
-            {
-                EventBus.Raise(new PlayerDamagedEvent
-                {
-                    Damage = finalBlow.Amount,
-                    RemainingHealth = 0,
-                    Source = finalBlow.Source
-                });
-            }
         }
 
         #endregion

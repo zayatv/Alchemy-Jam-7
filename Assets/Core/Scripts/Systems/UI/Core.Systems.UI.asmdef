@@ -1,14 +1,12 @@
 {
-    "name": "Core.Game.Input",
+    "name": "Core.Systems.UI",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c",
         "GUID:b8113d89f8f6e5342b4060892bb7e558",
-        "GUID:0db1dc4d2aaecb6459e30521aa9fc100",
-        "GUID:69a651df3b6ea284ab53b5b0dfa4bb68",
-        "GUID:e1057b8d90080c14ca9e7cf6ebef17b4",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:b1068c42ce053c643917d1d1978702ea",
         "GUID:6b035f7bf1e049ffb4c53e48e58fea11",
-        "GUID:364037d88f0562848bf368afcc6579f7"
+        "GUID:69a651df3b6ea284ab53b5b0dfa4bb68"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

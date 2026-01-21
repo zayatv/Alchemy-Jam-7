@@ -1,0 +1,19 @@
+{
+    "name": "Core.Game.Destructibles.Editor",
+    "rootNamespace": "Core.Game.Destructibles.Editor",
+    "references": [
+        "Core.Game.Destructibles",
+        "Core.Game.Combat"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

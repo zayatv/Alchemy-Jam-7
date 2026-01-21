@@ -7,7 +7,7 @@ namespace Core.Systems.ServiceLocator
     /// <summary>
     /// Global service locator. Services are registered/unregistered by installers when scenes load/unload.
     /// </summary>
-    public static class ServiceLocator
+    public class ServiceLocator
     {
         private static readonly Dictionary<Type, object> _services = new Dictionary<Type, object>();
         
