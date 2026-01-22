@@ -1110,12 +1110,10 @@ MonoBehaviour:
         _service: {fileID: 119815422}
     - rid: 7801669904582574358
       type: {class: UIServiceConfig, ns: Core.Systems.UI, asm: Core.Systems.UI}
-      data:
-        allMenus: []
+      data: 
     - rid: 7801669904582574362
       type: {class: HUDServiceConfig, ns: Core.Systems.UI.HUD, asm: Core.Systems.UI}
-      data:
-        hudItems: []
+      data: 
 --- !u!1 &1445765613
 GameObject:
   m_ObjectHideFlags: 0

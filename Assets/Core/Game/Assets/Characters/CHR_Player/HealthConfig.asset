@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: HealthConfig
   m_EditorClassIdentifier: Core.Game.Combat::Core.Game.Combat.HealthConfig
   maxHealth: 5
+  enableDamageImmunity: 0
+  immunityDuration: 1

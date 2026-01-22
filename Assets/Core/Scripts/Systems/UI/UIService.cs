@@ -30,14 +30,14 @@ namespace Core.Systems.UI
         {
             _allMenus.Add(menu);
             
-            if (!menu.OpenByDefault)
+            if (!menu.IsImportantMenu)
             {
                 menu.gameObject.SetActive(false);
                     
                 return;
             }
                 
-            OpenMenu(menu.GetType());
+            OpenMenu(menu.GetType(), false, false);
         }
 
         public void RemoveMenu(Menu menu)
@@ -94,24 +94,19 @@ namespace Core.Systems.UI
                 {
                     previousMenu.Close().onComplete += () =>
                     {
-                        openAction();
+                        openAction?.Invoke();
                     };
                 }
                 else
                 {
                     previousMenu.gameObject.SetActive(false);
-                    openAction();
+                    
+                    openAction?.Invoke();
                 }
             }
             else
             {
-                if (previousMenu != null)
-                {
-                    // Don't close the previous menu, just hide it
-                    // Maybe animate out or do nothing and disable it
-                }
-
-                openAction();
+                openAction?.Invoke();
             }
         }
         
@@ -162,6 +157,8 @@ namespace Core.Systems.UI
                     WasLastOpenMenu = _menuStack.Count == 0
                 });
             };
+            
+            EnsurePermanentMenusAreOpened();
         }
         
         public void CloseAllMenus(bool animateTop = true)
@@ -176,9 +173,13 @@ namespace Core.Systems.UI
             
             while (_menuStack.Count > 0)
             {
-                Menu hiddenMenu = _menuStack.Pop();
+                if (_menuStack.TryPeek(out Menu menu) && menu.IsImportantMenu)
+                    break;
                 
+                Menu hiddenMenu = _menuStack.Pop();
+
                 menusToClose.Add(hiddenMenu);
+                    
                 hiddenMenu.Close(false); 
             }
 
@@ -216,8 +217,11 @@ namespace Core.Systems.UI
             else
             {
                 topMenu.Close(false);
+                
                 onAnimationComplete();
             }
+            
+            EnsurePermanentMenusAreOpened();
         }
         
         public T GetMenu<T>() where T : Menu
@@ -235,6 +239,20 @@ namespace Core.Systems.UI
             else
             {
                 Time.timeScale = 1f;
+            }
+        }
+
+        private void EnsurePermanentMenusAreOpened()
+        {
+            foreach (var menu in _allMenus)
+            {
+                if (!menu.IsImportantMenu) 
+                    continue;
+                
+                if (_menuStack.Any(m => m.GetType() == menu.GetType()))
+                    continue;
+
+                OpenMenu(menu.GetType(), false, false);
             }
         }
     }

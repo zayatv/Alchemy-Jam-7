@@ -1,6 +1,7 @@
 ﻿using Core.Systems.Animations;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core.Systems.UI
 {
@@ -52,13 +53,9 @@ namespace Core.Systems.UI
         [SerializeField]
         protected bool hidesHUD = true;
         
-        [Tooltip("Is this menu opened by default?")]
+        [Tooltip("Is this an important menu that should always be open?")]
         [SerializeField]
-        protected bool openByDefault = false;
-        
-        [Tooltip("Should this Menu be able to be closed by pressing the back button?")]
-        [SerializeField]
-        protected bool canBeClosedByBackButton = true;
+        protected bool isImportantMenu = false;
 
         [Header("Animation Settings")] 
         [Tooltip("The main container for all visual elements of the menu.")]
@@ -79,8 +76,7 @@ namespace Core.Systems.UI
         public string MenuName => menuName;
         public bool PausesTime => pausesTime;
         public bool HidesHUD => hidesHUD;
-        public bool OpenByDefault => openByDefault;
-        public bool CanBeClosedByBackButton => canBeClosedByBackButton;
+        public bool IsImportantMenu => isImportantMenu;
         public RectTransform MainContainer => mainContainer;
         public CanvasGroup CanvasGroup => canvasGroup;
         
@@ -146,7 +142,7 @@ namespace Core.Systems.UI
         
         public virtual void OnBackPressed()
         {
-            if (canBeClosedByBackButton && uiService != null)
+            if (!isImportantMenu && uiService != null)
                 uiService.CloseMenu();
         }
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace Core.Systems.UI.Common.Button
@@ -74,6 +75,11 @@ namespace Core.Systems.UI.Common.Button
         [SerializeField, PropertyOrder(-5)]
         [Tooltip("Prevent state changes while button is transitioning")]
         private bool blockDuringTransition = false;
+        
+        [Title("Event Callbacks")]
+        [SerializeField, PropertyOrder(-4)]
+        [Tooltip("Event invoked when button is clicked")]
+        private UnityEvent onUnityEventClick;
         
         private ButtonVisualStateController _visualController;
         private ButtonState _currentState = ButtonState.Normal;
@@ -277,6 +283,7 @@ namespace Core.Systems.UI.Common.Button
                 return;
 
             OnClick?.Invoke(this, null);
+            onUnityEventClick?.Invoke();
         }
         
         public void ForceState(ButtonState state, bool instant = false)
@@ -419,6 +426,7 @@ namespace Core.Systems.UI.Common.Button
             }
 
             OnClick?.Invoke(this, eventData);
+            onUnityEventClick?.Invoke();
         }
 
         public void OnSelect(BaseEventData eventData)
@@ -463,6 +471,7 @@ namespace Core.Systems.UI.Common.Button
             OnSubmitEvent?.Invoke(this, eventData);
             
             OnClick?.Invoke(this, null);
+            onUnityEventClick?.Invoke();
         }
 
         public void OnBeginDrag(PointerEventData eventData)

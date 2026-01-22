@@ -8,8 +8,9 @@ namespace Core.Systems.Loading
     {
         private readonly string _sceneName;
         private readonly LoadSceneMode _loadSceneMode;
+        private readonly bool _setAsActive;
         
-        public LoadSceneOperation(string sceneName, LoadSceneMode loadSceneMode)
+        public LoadSceneOperation(string sceneName, LoadSceneMode loadSceneMode, bool setAsActive = false)
         {
             _sceneName = sceneName;
             _loadSceneMode = loadSceneMode;
@@ -28,6 +29,9 @@ namespace Core.Systems.Loading
             }
             
             asyncOperation.allowSceneActivation = true;
+
+            if (_setAsActive && SceneManager.GetActiveScene().name != _sceneName)
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneName));
             
             await UniTask.Yield(cancellationToken);
         }

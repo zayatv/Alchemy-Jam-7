@@ -1,23 +1,36 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using TransitionsPlus;
+using UnityEngine;
 
 namespace Core.Systems.Loading
 {
     public class PlayTransitionOperation : ILoadingOperation
     {
-        private readonly TransitionType _transitionType;
+        private readonly TransitionProfile _transitionProfile;
+        private TransitionAnimator _transitionAnimator;
         
-        public PlayTransitionOperation(TransitionType transitionType)
+        public PlayTransitionOperation(TransitionProfile transitionProfile)
         {
-            _transitionType = transitionType;
+            _transitionProfile = transitionProfile;
+            
+            _transitionAnimator = Object.FindFirstObjectByType<TransitionAnimator>();
         }
         
         public async UniTask Execute(LoadingOperationData loadingOperationData, CancellationToken cancellationToken = default)
         {
-            var animator = TransitionAnimator.Start(_transitionType);
+            if (_transitionAnimator == null)
+            {
+                _transitionAnimator = Object.FindFirstObjectByType<TransitionAnimator>();
+            }
+            
+            _transitionAnimator.SetProgress(0f);
+            _transitionAnimator.SetProfile( _transitionProfile);
+            _transitionAnimator.autoPlay = false;
+            _transitionAnimator.useUnscaledTime = true;
+            _transitionAnimator.Play();
 
-            while (animator.isPlaying)
+            while (_transitionAnimator.isPlaying)
             {
                 await UniTask.Yield(cancellationToken);
             }

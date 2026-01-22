@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Core.Systems.ServiceLocator
 {
@@ -12,9 +13,11 @@ namespace Core.Systems.ServiceLocator
     public class SceneServiceInstaller : MonoBehaviour, IServiceInstallHelper
     {
         [SerializeField] private bool installOnAwake = true;
-        [SerializeReference] private List<ServiceConfig> serviceConfigs = new List<ServiceConfig>();
+        [SerializeReference] private List<ServiceConfig> serviceConfigs = new();
+        [SerializeField] private UnityEvent onInstalled = new();
+        [SerializeField] private UnityEvent onUninstalled = new();
 
-        private readonly List<Type> _registeredServiceTypes = new List<Type>();
+        private readonly List<Type> _registeredServiceTypes = new();
 
         private void Awake()
         {
@@ -41,7 +44,6 @@ namespace Core.Systems.ServiceLocator
                 }
             }
 
-            // Call OnInstalled for all services
             foreach (var config in serviceConfigs)
             {
                 if (config != null)
@@ -49,6 +51,8 @@ namespace Core.Systems.ServiceLocator
                     config.OnInstalled(this);
                 }
             }
+            
+            onInstalled?.Invoke();
 
             Debug.Log($"[SceneServiceInstaller] Installed {serviceConfigs.Count} services");
         }
@@ -58,7 +62,6 @@ namespace Core.Systems.ServiceLocator
         /// </summary>
         public void Uninstall()
         {
-            // Call OnUninstalled for all services
             foreach (var config in serviceConfigs)
             {
                 if (config != null)
@@ -67,13 +70,14 @@ namespace Core.Systems.ServiceLocator
                 }
             }
 
-            // Unregister all services
             foreach (var serviceType in _registeredServiceTypes)
             {
                 serviceType.Unregister();
             }
 
             _registeredServiceTypes.Clear();
+            
+            onUninstalled?.Invoke();
 
             Debug.Log($"[SceneServiceInstaller] Uninstalled services");
         }
