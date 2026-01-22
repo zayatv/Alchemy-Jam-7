@@ -7,7 +7,7 @@ using Core.Systems.UI.HUD;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core.Game.UI.HUD
+namespace Core.Game.GameStates.DungeonState.UI.HUD
 {
     public class PlayerHealthHUDItem : HUDItem
     {

@@ -7,7 +7,7 @@ using Core.Systems.Update;
 using TMPro;
 using UnityEngine;
 
-namespace Core.Game.UI.HUD
+namespace Core.Game.GameStates.DungeonState.UI.HUD
 {
     public class EnemyHealthHUDItem : HUDItem, ILateUpdatable
     {

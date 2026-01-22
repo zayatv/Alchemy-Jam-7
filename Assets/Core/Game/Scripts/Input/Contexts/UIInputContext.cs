@@ -167,7 +167,9 @@ namespace Core.Game.Input.Contexts
         {
             EventBus.Subscribe<MenuOpenEvent>(eventData =>
             {
-                PushEscapeHandler(eventData.Menu.OnBackPressed);
+                if (!eventData.Menu.IsImportantMenu)
+                    PushEscapeHandler(eventData.Menu.OnBackPressed);
+                
                 RequestCursor(eventData.Menu.GetType().Name);
             });
             
