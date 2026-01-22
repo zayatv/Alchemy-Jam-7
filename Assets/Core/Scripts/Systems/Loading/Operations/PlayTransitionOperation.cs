@@ -30,10 +30,12 @@ namespace Core.Systems.Loading
             _transitionAnimator.useUnscaledTime = true;
             _transitionAnimator.Play();
 
-            while (_transitionAnimator.isPlaying)
+            while (_transitionAnimator.progress < 1f)
             {
                 await UniTask.Yield(cancellationToken);
             }
+            
+            _transitionAnimator.SetProgress(1f);
         }
     }
 }

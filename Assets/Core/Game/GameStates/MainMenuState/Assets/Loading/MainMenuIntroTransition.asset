@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0f9d22fa85eb43e8af60b22fb69c43c, type: 3}
-  m_Name: Loading Intro Transition
+  m_Name: MainMenuIntroTransition
   m_EditorClassIdentifier: TransitionsPlus::TransitionsPlus.TransitionProfile
   type: 2
   invert: 1

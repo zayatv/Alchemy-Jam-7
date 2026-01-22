@@ -9,5 +9,6 @@ namespace Core.Systems.Loading
         UniTask HideAsync(CancellationToken cancellationToken = default);
         bool IsActive { get; }
         bool CanHide { get; }
+        string Name { get; }
     }
 }

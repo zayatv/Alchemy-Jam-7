@@ -161,3 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5496ebe2921e42fb80287fdada9fd3f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Core.Systems.Loading::Core.Scripts.Systems.Loading.LoadingScreens.FadeLoadingScreen
+  loadingScreenName: Default

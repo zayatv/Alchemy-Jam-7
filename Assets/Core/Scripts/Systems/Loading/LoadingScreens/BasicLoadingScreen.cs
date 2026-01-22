@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using Core.Systems.Loading;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Core.Scripts.Systems.Loading.LoadingScreens
@@ -11,6 +10,8 @@ namespace Core.Scripts.Systems.Loading.LoadingScreens
     public class BasicLoadingScreen : MonoBehaviour, ILoadingScreen
     {
         #region Fields
+        
+        [SerializeField] private string loadingScreenName;
 
         private Canvas _canvas;
         private CanvasGroup _canvasGroup;
@@ -33,6 +34,7 @@ namespace Core.Scripts.Systems.Loading.LoadingScreens
 
         public bool IsActive => _isActive;
         public bool CanHide => true;
+        public string Name => loadingScreenName;
         
         public async UniTask ShowAsync(LoadingOperationData loadingProgress, CancellationToken cancellationToken = default)
         {

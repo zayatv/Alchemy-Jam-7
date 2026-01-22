@@ -48,7 +48,7 @@ namespace Core.Systems.Loading
                 operations.Enqueue(new LoadSceneOperation(coreScene.Name, LoadSceneMode.Additive));
 
             operations.Enqueue(new LoadSceneOperation(gameScene.Name, LoadSceneMode.Additive));
-            operations.Enqueue(new LoadSceneOperation(mainMenuScene.Name, LoadSceneMode.Additive));
+            operations.Enqueue(new LoadSceneOperation(mainMenuScene.Name, LoadSceneMode.Additive, true));
             operations.Enqueue(new HideLoadingScreenOperation());
             
             if (useIntroTransition)

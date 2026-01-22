@@ -22,12 +22,10 @@ namespace Core.Systems.Loading
             if (asyncOperation == null)
                 return;
 
-            while (asyncOperation.progress < 0.9f)
+            while (asyncOperation.isDone)
             {
                 await UniTask.Yield(cancellationToken);
             }
-            
-            asyncOperation.allowSceneActivation = true;
             
             if (_newActiveSceneName != null && SceneManager.GetActiveScene().name != _newActiveSceneName)
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneName));

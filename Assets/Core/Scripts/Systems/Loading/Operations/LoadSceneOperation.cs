@@ -22,6 +22,8 @@ namespace Core.Systems.Loading
 
             if (asyncOperation == null)
                 return;
+            
+            asyncOperation.allowSceneActivation = false;
 
             while (asyncOperation.progress < 0.9f)
             {
@@ -29,6 +31,11 @@ namespace Core.Systems.Loading
             }
             
             asyncOperation.allowSceneActivation = true;
+
+            while (!asyncOperation.isDone)
+            {
+                await UniTask.Yield(cancellationToken);
+            }
 
             if (_setAsActive && SceneManager.GetActiveScene().name != _sceneName)
                 SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneName));
